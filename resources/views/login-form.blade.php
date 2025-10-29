@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+
+    {{-- kalau kamu mau pakai CSS dari folder layouts  --}}
+    @include('layouts.user.index.css')
+
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -18,15 +22,15 @@
 
         .login-container {
             background: white;
-            padding: 40px;
+            padding: 50px 60px;
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            width: 350px;
+            width: 450px;
             text-align: center;
         }
 
         h2 {
-            color: #1877f2;
+            color: #F7B75C;
             margin-bottom: 30px;
         }
 
@@ -35,7 +39,7 @@
             text-align: left;
         }
 
-        input[type="text"],
+        input[type="email"],
         input[type="password"] {
             width: 100%;
             padding: 12px 10px;
@@ -55,7 +59,7 @@
         button {
             width: 100%;
             padding: 12px;
-            background-color: #1877f2;
+            background-color: #F7B75C;
             color: white;
             border: none;
             border-radius: 6px;
@@ -66,7 +70,7 @@
         }
 
         button:hover {
-            background-color: #166fe5;
+            background-color: #eda949;
         }
 
         .alert-error {
@@ -90,6 +94,7 @@
     <div class="login-container">
         <h2>LOGIN</h2>
 
+        {{-- tampilkan error kalau ada --}}
         @if ($errors->any())
             <div class="alert-error">
                 <ul>
@@ -104,8 +109,8 @@
             @csrf
 
             <div class="form-group">
-                <input type="text" id="username" name="username" placeholder="Username"
-                    value="{{ old('username') }}" required>
+                <input type="email" id="email" name="email" placeholder="Email"
+                    value="{{ old('email') }}" required>
             </div>
 
             <div class="form-group">

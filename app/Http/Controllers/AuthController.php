@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class AuthController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Tampilkan halaman login
      */
     public function index()
     {
@@ -15,26 +17,18 @@ class AuthController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * Proses login user
      */
     public function login(Request $request)
     {
         $rules = [
-            'username' => 'required|min:3',
+            'email' => 'required|email',
             'password' => ['required', 'min:3', 'regex:/[A-Z]/'],
         ];
 
         $messages = [
-            'username.required' => 'Username wajib diisi.',
-            'username.min' => 'Username minimal 3 karakter.',
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
             'password.required' => 'Password wajib diisi.',
             'password.min' => 'Password minimal 3 karakter.',
             'password.regex' => 'Password harus mengandung setidaknya satu huruf kapital.',
@@ -42,41 +36,44 @@ class AuthController extends Controller
 
         $request->validate($rules, $messages);
 
-        $data['username'] = $request->username;
-        $data['password'] = $request->password;
+        // Cek user berdasarkan email
+        $user = User::where('email', $request->email)->first();
 
-        return view('notif-login', $data);
+        if (!$user) {
+            return back()->withErrors(['Email tidak ditemukan'])->withInput();
+        }
+
+        // Cek password
+        if (!Hash::check($request->password, $user->password)) {
+            return back()->withErrors(['Password salah'])->withInput();
+        }
+
+        // Simpan session
+        session(['user_id' => $user->id]);
+
+        // Arahkan ke dashboard
+        return redirect()->route('dashboard');
     }
 
     /**
-     * Display the specified resource.
+     * Logout user
      */
-    public function show(string $id)
+    public function logout()
     {
-        //
+        session()->forget('user_id');
+        return redirect()->route('login.form')->with('success', 'Anda telah logout.');
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Halaman Dashboard setelah login
      */
-    public function edit(string $id)
+    public function dashboard()
     {
-        //
-    }
+        if (!session('user_id')) {
+            return redirect()->route('login.form')->withErrors(['Silakan login terlebih dahulu']);
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $user = User::find(session('user_id'));
+        return view('dashboard', compact('user'));
     }
 }

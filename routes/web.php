@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\WargaController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfilDesaController;
@@ -19,6 +21,12 @@ Route::post('/auth/login', [AuthController::class, 'login'])->name('login.proces
 Route::get('dashboard', [DashboardController::class, 'index'])
     ->name('dashboard');
 
-Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri.index');
+Route::resource('galeri', GaleriController::class);
 
-Route::post('/galeri', [GaleriController::class, 'store'])->name('galeri.store');
+Route::resource('warga', WargaController::class);
+
+Route::resource('user', UserController::class);
+
+// Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri.index');
+
+// Route::post('/galeri', [GaleriController::class, 'store'])->name('galeri.store');
