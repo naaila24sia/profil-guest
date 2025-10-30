@@ -33,6 +33,7 @@
                 <div class="collapse navbar-collapse bg-light" id="navbarCollapse">
                     <di class="navbar-nav ms-auto">
                         <a href="{{ route('dashboard') }}" class="nav-item nav-link">Home</a>
+                        <a href="{{route('about.index')}}" class="nav-item nav-link">About</a>
                         <a href="#" class="nav-item nav-link">Profil</a>
                         <a href="#" class="nav-item nav-link">Berita</a>
                         <a href="#" class="nav-item nav-link">Agenda</a>

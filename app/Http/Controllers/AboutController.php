@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class AboutController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('pages.dashboard.dashboard');
+        return view('pages.about.about');
     }
 
     /**
@@ -20,7 +19,7 @@ class DashboardController extends Controller
      */
     public function create()
     {
-         return view('pages.galeri.create');
+        //
     }
 
     /**
