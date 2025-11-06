@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 
-{{-- css start --}}
-@include('layouts.warga.create.css')
-{{-- css end  --}}
+<head>
+    <meta charset="utf-8">
+    <title>Tambah Galeri - Environs</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <!-- start css -->
+    @include('layouts.guest.galeri.create.css')
+    <!-- end css -->
+</head>
 
 <body>
     <!-- Spinner Start -->
@@ -14,11 +20,11 @@
     <!-- Spinner End -->
 
     <!-- Navbar Start -->
-    @include('layouts.warga.create.navbar')
+    @include('layouts.guest.galeri.create.navbar')
     <!-- Navbar End -->
 
     <!-- Header Start -->
-    @include('layouts.warga.create.header')
+    @include('layouts.guest.galeri.create.header')
     <!-- Header End -->
 
     <!-- Form Start -->
@@ -26,11 +32,11 @@
     <!-- Form End -->
 
     <!-- Footer Start -->
-    @include('layouts.warga.create.footer')
+    @include('layouts.guest.galeri.create.footer')
     <!-- Footer End -->
 
-    {{-- js start --}}
-    @include('layouts.warga.create.js')
-    {{-- js end --}}
+    <!--javascript start-->
+    @include('layouts.guest.galeri.create.js')
+    <!--javascript end-->
 </body>
 </html>

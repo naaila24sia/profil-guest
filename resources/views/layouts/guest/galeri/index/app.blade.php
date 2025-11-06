@@ -3,12 +3,12 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Data User</title>
+    <title>Galeri Kegiatan</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    {{-- css start --}}
-    @include('layouts.user.index.css')
-    {{-- css end --}}
+    <!-- CSS Start -->
+    @include('layouts.guest.galeri.index.css')
+    <!-- CSS End -->
 </head>
 
 <body>
@@ -20,28 +20,28 @@
     <!-- Spinner End -->
 
     <!-- Navbar Start -->
-    @include('layouts.user.index.navbar')
+   @include('layouts.guest.galeri.index.navbar')
     <!-- Navbar End -->
 
     <!-- Header Start -->
-    @include('layouts.user.index.header')
+    @include('layouts.guest.galeri.index.header')
     <!-- Header End -->
 
-    <!-- Data User Section Start -->
-    @yield('content')
-    <!-- Data User Section End -->
+    <!-- Galeri Section Start (content) -->
+   @yield('content')
+    <!-- Galeri Section End (contentt) -->
 
     <!-- Footer Start -->
-    @include('layouts.user.index.footer')
+    @include('layouts.guest.galeri.index.footer')
     <!-- Footer End -->
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded back-to-top"><i
             class="bi bi-arrow-up"></i></a>
 
-    {{-- js start --}}
-    @include('layouts.user.index.js')
-    {{-- js end --}}
+    <!-- JavaScript Start -->
+    @include('layouts.guest.galeri.index.js')
+    <!-- JavaScript End -->
 </body>
 
 </html>

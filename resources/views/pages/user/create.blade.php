@@ -1,4 +1,4 @@
-@extends('layouts.user.create.app')
+@extends('layouts.guest.user.create.app')
 
 @section('content')
     <!-- Form Start -->

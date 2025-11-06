@@ -1,4 +1,4 @@
-@extends('layouts.user.index.app')
+@extends('layouts.guest.user.index.app')
 
 @section('content')
     <!-- Data User Section Start -->

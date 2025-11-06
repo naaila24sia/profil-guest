@@ -3,11 +3,11 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Tambah Galeri - Environs</title>
+    <title>Edit Data User - Bina Desa</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     {{-- css start --}}
-    @include('layouts.galeri.edit.css')
+    @include('layouts.guest.user.edit.css')
     {{-- css end --}}
 </head>
 
@@ -20,25 +20,24 @@
     <!-- Spinner End -->
 
     <!-- Navbar Start -->
-    @include('layouts.galeri.edit.navbar')
+    @include('layouts.guest.user.edit.navbar')
     <!-- Navbar End -->
 
     <!-- Header Start -->
-    @include('layouts.galeri.edit.header')
+    @include('layouts.guest.user.edit.header')
     <!-- Header End -->
 
-    <!-- Form Edit Galeri Start -->
+    <!-- Form Edit User Start -->
     @yield('content')
-    <!-- Form Edit Galeri End -->
+    <!-- Form Edit User End -->
 
     <!-- Footer Start -->
-    @include('layouts.galeri.edit.footer')
+    @include('layouts.guest.user.edit.footer')
     <!-- Footer End -->
 
-    {{-- javascript start--}}
-    @include('layouts.galeri.edit.js')
-    {{-- javascript end--}}
-
+    {{-- js start --}}
+    @include('layouts.guest.user.edit.js')
+    {{-- js end --}}
 </body>
 
 </html>

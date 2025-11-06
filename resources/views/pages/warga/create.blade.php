@@ -1,4 +1,4 @@
-@extends('layouts.warga.create.app')
+@extends('layouts.guest.warga.create.app')
 
 @section('content')
     <!-- Form Start -->

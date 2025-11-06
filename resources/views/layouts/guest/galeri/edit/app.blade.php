@@ -6,9 +6,9 @@
     <title>Tambah Galeri - Environs</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <!-- start css -->
-    @include('layouts.galeri.create.css')
-    <!-- end css -->
+    {{-- css start --}}
+    @include('layouts.guest.galeri.edit.css')
+    {{-- css end --}}
 </head>
 
 <body>
@@ -20,23 +20,25 @@
     <!-- Spinner End -->
 
     <!-- Navbar Start -->
-    @include('layouts.galeri.create.navbar')
+    @include('layouts.guest.galeri.edit.navbar')
     <!-- Navbar End -->
 
     <!-- Header Start -->
-    @include('layouts.galeri.create.header')
+    @include('layouts.guest.galeri.edit.header')
     <!-- Header End -->
 
-    <!-- Form Start -->
+    <!-- Form Edit Galeri Start -->
     @yield('content')
-    <!-- Form End -->
+    <!-- Form Edit Galeri End -->
 
     <!-- Footer Start -->
-    @include('layouts.galeri.create.footer')
+    @include('layouts.guest.galeri.edit.footer')
     <!-- Footer End -->
 
-    <!--javascript start-->
-    @include('layouts.galeri.create.js')
-    <!--javascript end-->
+    {{-- javascript start--}}
+    @include('layouts.guest.galeri.edit.js')
+    {{-- javascript end--}}
+
 </body>
+
 </html>

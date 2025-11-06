@@ -2,7 +2,7 @@
 <html lang="en">
 
 {{-- css start --}}
-@include('layouts.dashboard.css')
+@include('layouts.guest.dashboard.css')
 {{-- css end  --}}
 
 <body>
@@ -16,12 +16,12 @@
 
 
     <!-- Navbar start -->
-    @include('layouts.dashboard.navbar')
+    @include('layouts.guest.dashboard.navbar')
     <!-- Navbar End -->
 
 
     <!-- Carousel Start -->
-    @include('layouts.dashboard.header')
+    @include('layouts.guest.dashboard.header')
     <!-- Carousel End -->
 
     {{-- content start --}}
@@ -29,7 +29,7 @@
     {{-- content end  --}}
 
     <!-- Footer Start -->
-    @include('layouts.dashboard.footer')
+    @include('layouts.guest.dashboard.footer')
     <!-- Footer End -->
 
 
@@ -73,7 +73,7 @@
 
 
     {{-- js start --}}
-    @include('layouts.dashboard.js')
+    @include('layouts.guest.dashboard.js')
     {{-- js end --}}
 
 </body>

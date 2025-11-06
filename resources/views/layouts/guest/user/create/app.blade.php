@@ -3,11 +3,11 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Edit Data User - Bina Desa</title>
+    <title>Tambah User - Bina Desa</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     {{-- css start --}}
-    @include('layouts.user.edit.css')
+    @include('layouts.guest.user.create.css')
     {{-- css end --}}
 </head>
 
@@ -20,23 +20,23 @@
     <!-- Spinner End -->
 
     <!-- Navbar Start -->
-    @include('layouts.user.edit.navbar')
+    @include('layouts.guest.user.create.navbar')
     <!-- Navbar End -->
 
     <!-- Header Start -->
-    @include('layouts.user.edit.header')
+    @include('layouts.guest.user.create.header')
     <!-- Header End -->
 
-    <!-- Form Edit User Start -->
+    <!-- Form Start -->
     @yield('content')
-    <!-- Form Edit User End -->
+    <!-- Form End -->
 
     <!-- Footer Start -->
-    @include('layouts.user.edit.footer')
+    @include('layouts.guest.user.create.footer')
     <!-- Footer End -->
 
     {{-- js start --}}
-    @include('layouts.user.edit.js')
+    @include('layouts.guest.user.create.js')
     {{-- js end --}}
 </body>
 

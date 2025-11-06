@@ -1,4 +1,4 @@
-@extends('layouts.warga.index.app')
+@extends('layouts.guest.warga.index.app')
 
 @section('content')
     <!-- Data Warga Section Start -->

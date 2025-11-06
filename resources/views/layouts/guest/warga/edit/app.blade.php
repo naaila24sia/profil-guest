@@ -2,7 +2,7 @@
 <html lang="en">
 
 {{-- css start --}}
-@include('layouts.warga.edit.css')
+@include('layouts.guest.warga.edit.css')
 {{-- css end  --}}
 
 <body>
@@ -14,11 +14,11 @@
     <!-- Spinner End -->
 
     <!-- Navbar Start -->
-    @include('layouts.warga.edit.navbar')
+    @include('layouts.guest.warga.edit.navbar')
     <!-- Navbar End -->
 
     <!-- Header Start -->
-    @include('layouts.warga.edit.header')
+    @include('layouts.guest.warga.edit.header')
     <!-- Header End -->
 
     <!-- Form Edit Warga Start -->
@@ -26,11 +26,11 @@
     <!-- Form Edit Warga End -->
 
     <!-- Footer Start -->
-    @include('layouts.warga.edit.footer')
+    @include('layouts.guest.warga.edit.footer')
     <!-- Footer End -->
 
     {{-- js start --}}
-    @include('layouts.warga.edit.js')
+    @include('layouts.guest.warga.edit.js')
     {{-- js end --}}
 </body>
 

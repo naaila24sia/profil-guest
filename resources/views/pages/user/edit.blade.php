@@ -1,4 +1,4 @@
-@extends('layouts.user.edit.app')
+@extends('layouts.guest.user.edit.app')
 
 @section('content')
     <!-- Form Edit User Start -->

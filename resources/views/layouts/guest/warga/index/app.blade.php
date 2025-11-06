@@ -2,7 +2,7 @@
 <html lang="en">
 
 {{-- css start --}}
-@include('layouts.warga.index.css')
+@include('layouts.guest.warga.index.css')
 {{-- css end  --}}
 <body>
     <!-- Spinner Start -->
@@ -13,11 +13,11 @@
     <!-- Spinner End -->
 
     <!-- Navbar Start -->
-    @include('layouts.warga.index.navbar')
+    @include('layouts.guest.warga.index.navbar')
     <!-- Navbar End -->
 
     <!-- Header Start -->
-    @include('layouts.warga.index.header')
+    @include('layouts.guest.warga.index.header')
     <!-- Header End -->
 
     <!-- Data Warga Section Start -->
@@ -25,7 +25,7 @@
     <!-- Data Warga Section End -->
 
     <!-- Footer Start -->
-    @include('layouts.warga.index.footer')
+    @include('layouts.guest.warga.index.footer')
     <!-- Footer End -->
 
     <!-- Back to Top -->
@@ -33,7 +33,7 @@
             class="bi bi-arrow-up"></i></a>
 
     {{-- js start --}}
-    @include('layouts.warga.index.js')
+    @include('layouts.guest.warga.index.js')
     {{-- js end --}}
 </body>
 
