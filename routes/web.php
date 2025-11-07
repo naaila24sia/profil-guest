@@ -3,13 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\WargaController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfilDesaController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.dashboard.dashboard');
 });
 
 Route::get('/profil', [ProfilDesaController::class, 'index']);
@@ -26,6 +27,8 @@ Route::resource('galeri', GaleriController::class);
 Route::resource('warga', WargaController::class);
 
 Route::resource('user', UserController::class);
+
+Route::resource('about', AboutController::class);
 
 // Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri.index');
 

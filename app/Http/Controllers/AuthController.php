@@ -13,7 +13,7 @@ class AuthController extends Controller
      */
     public function index()
     {
-        return view('login-form');
+        return view('pages.auth.login-form');
     }
 
     /**
