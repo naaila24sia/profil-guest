@@ -36,7 +36,7 @@
                         <a href="#" class="nav-item nav-link">Agenda</a>
                         <a href="{{ route('galeri.index') }}" class="nav-item nav-link active">Galeri</a>
                         <a href="{{route('warga.index')}}" class="nav-item nav-link">Warga</a>
-                        <a href="{{'route('user.index')'}}" class="nav-item nav-link">User</a>
+                        <a href="{{route('user.index')}}" class="nav-item nav-link">User</a>
                     </div>
                 </div>
             </nav>
