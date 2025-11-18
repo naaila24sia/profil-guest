@@ -1,4 +1,4 @@
-@extends('layouts.galeri.edit.app')
+@extends('layouts.guest.galeri.edit.app')
 
 @section('content')
 <!-- Form Edit Galeri Start -->

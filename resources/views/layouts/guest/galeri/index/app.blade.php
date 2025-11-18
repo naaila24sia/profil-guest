@@ -20,7 +20,7 @@
     <!-- Spinner End -->
 
     <!-- Navbar Start -->
-   @include('layouts.guest.galeri.index.navbar')
+   @include('layouts.guest.dashboard.navbar')
     <!-- Navbar End -->
 
     <!-- Header Start -->

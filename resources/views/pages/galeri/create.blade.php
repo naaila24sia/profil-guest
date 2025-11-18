@@ -1,4 +1,4 @@
-@extends('layouts.galeri.create.app')
+@extends('layouts.guest.galeri.create.app')
 
 @section('content')
 <!-- Form Start (content) -->
@@ -31,5 +31,5 @@
         </div>
     </div>
     <!-- Form End (content) -->
-    
+
 @endsection

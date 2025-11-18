@@ -1,7 +1,9 @@
 <head>
     <meta charset="utf-8">
-    <title>Edit Data Warga - Bina Desa</title>
+    <title>Bina Desa</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,14 +18,14 @@
     <link href="{{ asset('assets-guest/vendor/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets-guest/vendor/lightbox/css/lightbox.min.css') }}" rel="stylesheet">
 
+
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{ asset('assets-guest/css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- Template Stylesheet -->
     <link href="{{ asset('assets-guest/css/style.css') }}" rel="stylesheet">
-</head>
 
-<!-- Floating WhatsApp Button -->
+    <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/6282134567890" class="float-whatsapp" target="_blank">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
@@ -61,3 +63,5 @@
 
     <!-- Pastikan Font Awesome sudah aktif -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+</head>
