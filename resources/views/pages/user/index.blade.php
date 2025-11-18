@@ -1,6 +1,107 @@
-@extends('layouts.guest.user.index.app')
+@extends('layouts.guest.app')
 
 @section('content')
+<style>
+        /* ======== Custom Style Card User ======== */
+        .user-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            transition: 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-avatar {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0d6efd, #007bff);
+            color: #fff;
+            font-size: 28px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-details h5 {
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #222;
+        }
+
+        .user-details p {
+            margin: 0;
+            font-size: 15px;
+            color: #555;
+        }
+
+        .user-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-edit {
+            background-color: #ffc107;
+            border: none;
+            color: #000;
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: 0.3s;
+            width: 90px;
+        }
+
+        .btn-edit:hover {
+            background-color: #e0a800;
+            color: #fff;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            border: none;
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: 0.3s;
+            width: 90px;
+        }
+
+        .btn-delete:hover {
+            background-color: #bb2d3b;
+        }
+
+        @media (max-width: 768px) {
+            .user-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .user-actions {
+                flex-direction: row;
+                margin-top: 15px;
+            }
+        }
+    </style>
+
     <!-- Data User Section Start -->
     <div class="container py-5 mt-5 pt-5">
         <div class="d-flex justify-content-between align-items-center mb-4">

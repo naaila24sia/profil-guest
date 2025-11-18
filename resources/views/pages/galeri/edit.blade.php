@@ -1,8 +1,8 @@
-@extends('layouts.guest.galeri.edit.app')
+@extends('layouts.guest.app')
 
 @section('content')
 <!-- Form Edit Galeri Start -->
-    <div class="container py-5">
+    <<div class="container py-5" style="margin-top:80px;">
         <div class="col-lg-8 mx-auto bg-light p-5 rounded shadow">
             <h3 class="text-center mb-4 text-primary">Form Edit Galeri</h3>
 

@@ -1,8 +1,8 @@
-@extends('layouts.guest.warga.create.app')
+@extends('layouts.guest.app')
 
 @section('content')
     <!-- Form Start -->
-    <div class="container py-5">
+    <div class="container py-5" style="margin-top:90px;">
         <div class="col-lg-8 mx-auto bg-light p-5 rounded shadow">
             <h3 class="text-center mb-4 text-primary">Form Tambah Warga</h3>
             <form action="{{ route('warga.store') }}" method="POST">

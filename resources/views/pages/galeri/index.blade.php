@@ -1,4 +1,4 @@
-@extends('layouts.guest.galeri.index.app')
+@extends('layouts.guest.app')
 
 @section('content')
 

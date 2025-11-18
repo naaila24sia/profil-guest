@@ -1,4 +1,6 @@
-@extends('layouts.guest.dashboard.app')
+@extends('layouts.guest.app')
+
+@include('layouts.guest.header')
 
 @section('content')
     {{-- content start --}}
