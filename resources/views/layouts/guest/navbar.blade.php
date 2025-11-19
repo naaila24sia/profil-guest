@@ -31,6 +31,7 @@
             </button>
             <div class="collapse navbar-collapse bg-light" id="navbarCollapse">
                 <ul class="navbar-nav ms-auto">
+
                     <li>
                         <a href="{{ route('dashboard') }}"
                             class="nav-link {{ request()->routeIs('dashboard') ? 'fw-bold text-primary' : 'text-dark' }}">
@@ -49,8 +50,15 @@
                         </a>
                     </li>
                     <li>
-                        <a href="blog.html" class="nav-link text-dark">
+                        <a href="{{ route('berita.index') }}"
+                            class="nav-link {{ request()->routeIs('berita.index') ? 'fw-bold text-primary' : 'text-dark' }}">
                             Berita
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('kategori.index') }}"
+                            class="nav-link {{ request()->routeIs('kategori.index') ? 'fw-bold text-primary' : 'text-dark' }}">
+                            Kategori Berita
                         </a>
                     </li>
                     <li>

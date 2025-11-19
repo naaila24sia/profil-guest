@@ -1,11 +1,11 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Berita;
 use App\Models\KategoriBerita;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 
 class BeritaController extends Controller
 {
@@ -28,10 +28,10 @@ class BeritaController extends Controller
     {
         $request->validate([
             'kategori_id' => 'required|exists:kategori_berita,kategori_id',
-            'judul'       => 'required',
+            'judul'       => 'required|string|max:200',
             'slug'        => 'nullable|unique:berita,slug',
             'isi_html'    => 'required',
-            'penulis'     => 'nullable',
+            'penulis'     => 'nullable|string|max:100',
             'status'      => 'required|in:draft,published',
             'terbit_at'   => 'nullable|date',
         ]);
@@ -73,10 +73,10 @@ class BeritaController extends Controller
 
         $request->validate([
             'kategori_id' => 'required|exists:kategori_berita,kategori_id',
-            'judul'       => 'required',
+            'judul'       => 'required|string|max:200',
             'slug'        => 'nullable|unique:berita,slug,' . $berita->berita_id . ',berita_id',
             'isi_html'    => 'required',
-            'penulis'     => 'nullable',
+            'penulis'     => 'nullable|string|max:100',
             'status'      => 'required|in:draft,published',
             'terbit_at'   => 'nullable|date',
         ]);
@@ -87,7 +87,7 @@ class BeritaController extends Controller
         $berita->isi_html    = $request->isi_html;
         $berita->penulis     = $request->penulis;
         $berita->status      = $request->status;
-        $berita->terbit_at   = $request->terbit_at ? Carbon::parse($request->terbit_at) : null;
+        $berita->terbit_at   = $request->terbit_at;
 
         $berita->save();
 

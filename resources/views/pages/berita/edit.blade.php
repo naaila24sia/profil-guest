@@ -10,56 +10,64 @@
             @csrf
             @method('PUT')
 
-            <!-- Kategori (ketik nama, akan dibuat otomatis jika belum ada) -->
+            <!-- Kategori -->
             <div class="mb-3">
                 <label class="form-label">Kategori</label>
-                <input type="text" name="kategori_nama" class="form-control"
-                       value="{{ old('kategori_nama', $berita->kategori->nama ?? '') }}"
-                       placeholder="Ketik nama kategori" required>
-                <small class="text-muted">Ketik nama kategori — jika belum ada, akan dibuat otomatis.</small>
+                <select name="kategori_id" class="form-control" required>
+                    <option value="">-- Pilih Kategori --</option>
+                    @foreach ($kategori as $k)
+                        <option value="{{ $k->kategori_id }}"
+                            {{ $k->kategori_id == $berita->kategori_id ? 'selected' : '' }}>
+                            {{ $k->nama }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
 
             <!-- Judul -->
             <div class="mb-3">
                 <label class="form-label">Judul</label>
-                <input type="text" name="judul" class="form-control" value="{{ old('judul', $berita->judul) }}"
-                    placeholder="Masukkan judul berita" required>
+                <input type="text" name="judul" class="form-control"
+                       value="{{ old('judul', $berita->judul) }}"
+                       placeholder="Masukkan judul berita" required>
             </div>
 
             <!-- Slug -->
             <div class="mb-3">
                 <label class="form-label">Slug (opsional)</label>
-                <input type="text" name="slug" class="form-control" value="{{ old('slug', $berita->slug) }}"
-                    placeholder="Kosongkan untuk otomatis">
+                <input type="text" name="slug" class="form-control"
+                       value="{{ old('slug', $berita->slug) }}"
+                       placeholder="Kosongkan untuk otomatis">
             </div>
 
             <!-- Isi Berita -->
             <div class="mb-3">
                 <label class="form-label">Isi Berita</label>
-                <textarea name="isi_html" class="form-control" rows="6" placeholder="Tulis isi berita..." required>{{ old('isi_html', $berita->isi_html) }}</textarea>
+                <textarea name="isi_html" class="form-control" rows="6"
+                          placeholder="Tulis isi berita..." required>{{ old('isi_html', $berita->isi_html) }}</textarea>
             </div>
 
             <!-- Penulis -->
             <div class="mb-3">
                 <label class="form-label">Penulis</label>
-                <input type="text" name="penulis" class="form-control" value="{{ old('penulis', $berita->penulis) }}"
-                    placeholder="Nama penulis (opsional)">
+                <input type="text" name="penulis" class="form-control"
+                       value="{{ old('penulis', $berita->penulis) }}"
+                       placeholder="Nama penulis (opsional)">
             </div>
 
             <!-- Status -->
             <div class="mb-3">
                 <label class="form-label">Status</label>
                 <select name="status" class="form-control" required>
-                    <option value="draft" {{ old('status', $berita->status) == 'draft' ? 'selected' : '' }}>Draft</option>
-                    <option value="published" {{ old('status', $berita->status) == 'published' ? 'selected' : '' }}>Published</option>
+                    <option value="draft" {{ $berita->status == 'draft' ? 'selected' : '' }}>Draft</option>
+                    <option value="published" {{ $berita->status == 'published' ? 'selected' : '' }}>Published</option>
                 </select>
             </div>
-
             <!-- Tanggal Terbit -->
             <div class="mb-3">
                 <label class="form-label">Tanggal Terbit (optional)</label>
                 <input type="datetime-local" name="terbit_at" class="form-control"
-                    value="{{ old('terbit_at', $berita->terbit_at ? date('Y-m-d\TH:i', strtotime($berita->terbit_at)) : '') }}">
+                       value="{{ old('terbit_at', $berita->terbit_at ? date('Y-m-d\TH:i', strtotime($berita->terbit_at)) : '') }}">
             </div>
 
             <!-- Tombol -->

@@ -5,6 +5,12 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
 
+     <!-- Spinner Start -->
+        <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
+            <div class="spinner-grow text-primary" role="status"></div>
+        </div>
+        <!-- Spinner End -->
+
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,6 +42,10 @@
 
     <!-- Style Floating Button -->
     <style>
+        .navbar-nav .nav-link:hover {
+    color: #F8B968 !important;   /* warna kuning kamu */
+}
+
         .float-whatsapp {
             position: fixed;
             width: 60px;

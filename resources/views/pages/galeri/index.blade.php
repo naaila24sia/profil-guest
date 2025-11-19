@@ -9,6 +9,7 @@
                 <h5 class="text-uppercase text-primary mb-1">DOKUMENTASI</h5>
                 <h1 class="mb-0">Galeri Kegiatan Terbaru</h1>
             </div>
+            
             <!-- Tombol Tambah Data -->
             <a href="{{ route('galeri.create') }}" class="btn btn-primary">
                 <i class="bi bi-plus-circle"></i> Tambah Data
