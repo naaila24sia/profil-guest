@@ -11,9 +11,14 @@ class GaleriController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $galeris = Galeri::all();
+        $searchableColumns = ['judul', 'deskripsi'];
+
+        $galeris = Galeri::search($request, $searchableColumns)
+        ->paginate(12)
+        ->withQueryString();
+
         return view('pages.galeri.index', compact('galeris'));
     }
 

@@ -9,7 +9,7 @@
                 <h5 class="text-uppercase text-primary mb-1">DOKUMENTASI</h5>
                 <h1 class="mb-0">Galeri Kegiatan Terbaru</h1>
             </div>
-            
+
             <!-- Tombol Tambah Data -->
             <a href="{{ route('galeri.create') }}" class="btn btn-primary">
                 <i class="bi bi-plus-circle"></i> Tambah Data
@@ -31,6 +31,22 @@
             </div>
         @endif
 
+        {{-- search form --}}
+        <form method="GET" action="{{ route('galeri.index') }}">
+            <div class="col-md-4 mb-4">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" id="exampleInputIconRight"
+                        value="{{ request('search') }}" placeholder="Search" aria-label="Search">
+                    <button type="submit" class="btn btn-outline-secondary" id="basic-addon2" aria-label="Search button">
+                        <i class="bi bi-search"></i>
+                    </button>
+                    @if (request('search'))
+                        <a href="{{ request()->fullUrlWithQuery(['search' => null]) }}"
+                            class="btn btn-outline-secondary ml-3" id="clear-search"> Clear</a>
+                    @endif
+                </div>
+            </div>
+        </form>
 
         <div class="row justify-content-start">
             @forelse ($galeris as $item)
@@ -65,6 +81,13 @@
             @endforelse
         </div>
     </div>
+
+    <!-- pagination -->
+        <div class="mt-3 d-flex justify-content-center">
+            {{ $galeris->links('pagination::bootstrap-5') }}
+        </div>
+    </div>
+
     <!-- Galeri Section End -->
 
 @endsection

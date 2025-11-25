@@ -1,7 +1,7 @@
 @extends('layouts.guest.app')
 
 @section('content')
-<style>
+    <style>
         /* ======== Custom Style Card User ======== */
         .user-card {
             background: #fff;
@@ -135,6 +135,24 @@
             </div>
         @endif
 
+        {{-- Search form --}}
+        <form method="GET" action="{{ route('user.index') }}">
+            <div class="col-md-4 mb-4">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" id="exampleInputIconRight"
+                        value="{{ request('search') }}" placeholder="Search" aria-label="Search">
+                    <button type="submit" class="btn btn-outline-secondary" id="basic-addon2" aria-label="Search button">
+                        <i class="bi bi-search"></i>
+                    </button>
+                    @if (request('search'))
+                        <a href="{{ request()->fullUrlWithQuery(['search' => null]) }}"
+                            class="btn btn-outline-secondary ml-3" id="clear-search"> Clear</a>
+                    @endif
+                </div>
+            </div>
+        </form>
+
+
         {{-- Card User List --}}
         @forelse ($dataUser as $user)
             <div class="user-card">
@@ -166,6 +184,10 @@
                 <p>Belum ada user terdaftar.</p>
             </div>
         @endforelse
-    </div>
-    <!-- Data User Section End -->
-@endsection
+
+        <!-- PAGINATION -->
+        <div class="mt-3 d-flex justify-content-center">
+            {{ $dataUser->links('pagination::bootstrap-5') }}
+        </div>
+        <!-- Data User Section End -->
+    @endsection

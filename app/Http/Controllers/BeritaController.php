@@ -12,9 +12,13 @@ class BeritaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data['berita'] = Berita::with('kategori')->get();
+        $searchableColumns = ['judul', 'slug', 'isi_html', 'penulis', 'status', 'terbit_at'];
+
+        $data['berita'] = Berita::with('kategori')->search($request, $searchableColumns)
+            ->paginate(9)
+            ->withQueryString();
         return view('pages.berita.index', $data);
     }
 

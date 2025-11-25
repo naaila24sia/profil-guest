@@ -74,9 +74,10 @@
         }
 
         .btn-add {
-            background-color: #ffc107;
+            background-color: #F8B968;
             border: none;
-            color: #000; ;
+            color: #000;
+            ;
             padding: 6px 14px;
             font-weight: 700;
         }
@@ -91,6 +92,7 @@
             transition: 0.3s;
             width: 90px;
         }
+
         .btn-edit:hover {
             background-color: #e0a800;
             color: #fff;
@@ -110,6 +112,7 @@
         .btn-delete:hover {
             background-color: #bb2d3b;
         }
+
         @media (max-width: 768px) {
             .cat-card {
                 flex-direction: column;
@@ -164,7 +167,7 @@
             </div>
 
             <a href="{{ route('kategori.create') }}" class="btn btn-add d-flex align-items-center gap-2">
-                <i class="bi bi-plus-circle"></i> Tambah Kategori
+                <i class="bi bi-plus-circle"></i> Tambah Data
             </a>
 
         </div>
@@ -188,6 +191,43 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         @endif
+
+        {{-- Filter kategori --}}
+        <div class="table-responsive">
+            <form method="GET" action="{{ route('kategori.index') }}" class="mb-3">
+                <div class="row">
+                    <div class="col-md-2">
+                        <select name="nama" class="form-select" onchange="this.form.submit()">
+                            <option value="">Semua Kategori</option>
+                            <option value="Pemerintahan" {{ request('nama') == 'Pemerintahan' ? 'selected' : '' }}>
+                                Pemerintahan</option>
+                            <option value="Kesehatan" {{ request('nama') == 'Kesehatan' ? 'selected' : '' }}>Kesehatan
+                            </option>
+                            <option value="Pendidikan" {{ request('nama') == 'Pendidikan' ? 'selected' : '' }}>Pendidikan
+                            </option>
+                            <option value="Kegiatan Warga" {{ request('nama') == 'Kegiatan Warga' ? 'selected' : '' }}>
+                                Kegiatan Warga</option>
+                            <option value="Pembangunan Desa" {{ request('nama') == 'Pembangunan Desa' ? 'selected' : '' }}>
+                                Pembangunan Desa</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control" id="exampleInputIconRight"
+                                value="{{ request('search') }}" placeholder="Search" aria-label="Search">
+                            <button type="submit" class="btn btn-outline-secondary" id="basic-addon2"
+                                aria-label="Search button">
+                                <i class="bi bi-search"></i>
+                            </button>
+                            @if (request('search'))
+                                <a href="{{ request()->fullUrlWithQuery(['search' => null]) }}"
+                                    class="btn btn-outline-secondary ml-3" id="clear-search"> Clear</a>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
 
         {{-- List kategori --}}
         @forelse ($kategori as $k)
@@ -226,6 +266,13 @@
                 <p>Belum ada kategori.</p>
             </div>
         @endforelse
+
+        <!-- PAGINATION -->
+        <div class="mt-3 d-flex justify-content-center">
+            {{ $kategori->links('pagination::bootstrap-5') }}
+        </div>
     </div>
+
+
     <!-- Kategori Section End -->
 @endsection

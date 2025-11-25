@@ -12,9 +12,15 @@ class KategoriBeritaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data['kategori'] = KategoriBerita::all();
+        $filterableColumns = ['nama'];
+        $searchableColumns = ['nama', 'deskripsi', 'slug'];
+
+        $data['kategori'] = KategoriBerita::filter($request, $filterableColumns)
+                ->search($request, $searchableColumns)
+                ->paginate(10)
+                ->withQueryString();
         return view('pages.kategori.index', $data);
     }
 

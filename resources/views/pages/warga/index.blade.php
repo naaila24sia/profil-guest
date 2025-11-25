@@ -1,7 +1,7 @@
 @extends('layouts.guest.app')
 
 @section('content')
-<style>
+    <style>
         /* ======== Tambahan Style untuk Card Horizontal ======== */
         .card-horizontal {
             display: flex;
@@ -96,7 +96,7 @@
             }
         }
     </style>
-    
+
     <!-- Data Warga Section Start -->
     <div class="container py-5 mt-5 pt-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -122,6 +122,35 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
+
+        {{-- FILTER JENIS KELAMIN DAN AGAMA --}}
+        <form method="GET" action="{{ route('warga.index') }}" class="mb-3">
+            <div class="row g-2">
+                <div class="col-md-2">
+                    <select name="jenis_kelamin" class="form-select" onchange="this.form.submit()">
+                        <option value="">Semua Data Warga</option>
+                        <option value="Laki-Laki" {{ request('jenis_kelamin') == 'Laki-Laki' ? 'selected' : '' }}>Laki-Laki
+                        </option>
+                        <option value="Perempuan" {{ request('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <input type="text" name="search" class="form-control" id="exampleInputIconRight"
+                            value="{{ request('search') }}" placeholder="Search" aria-label="Search">
+                        <button type="submit" class="btn btn-outline-secondary" id="basic-addon2"
+                            aria-label="Search button">
+                            <i class="bi bi-search"></i>
+                        </button>
+                        @if (request('search'))
+                            <a href="{{ request()->fullUrlWithQuery(['search' => null]) }}"
+                                class="btn btn-outline-secondary ml-3" id="clear-search"> Clear</a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </form>
 
         {{-- Card List --}}
         @forelse ($wargas as $item)
@@ -158,6 +187,10 @@
                 <p>Belum ada data warga.</p>
             </div>
         @endforelse
-    </div>
-    <!-- Data Warga Section End -->
-@endsection
+
+        <!-- PAGINATION -->
+        <div class="mt-3 d-flex justify-content-center">
+            {{ $wargas->links('pagination::bootstrap-5') }}
+        </div>
+        <!-- Data Warga Section End -->
+    @endsection

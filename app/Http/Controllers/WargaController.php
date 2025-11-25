@@ -10,9 +10,17 @@ class WargaController extends Controller
     /**
      * Tampilkan semua data warga
      */
-    public function index()
+    public function index(Request $request)
     {
-        $wargas = Warga::latest()->get();
+        $filterableColumns = ['jenis_kelamin'];
+
+        $searchableColumns = ['no_ktp', 'nama', 'pekerjaan','email','telp'];
+
+        $wargas = Warga::latest()->filter($request, $filterableColumns)
+        ->search($request, $searchableColumns)
+        ->paginate(10)
+        ->withQueryString();
+
         return view('pages.warga.index', compact('wargas'));
     }
 

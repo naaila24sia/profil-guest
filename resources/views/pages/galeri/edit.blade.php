@@ -1,74 +1,55 @@
 @extends('layouts.guest.app')
 
 @section('content')
-<!-- Form Edit Berita Start -->
-<div class="container py-5" style="margin-top:80px;">
+<!-- Form Edit Galeri Start -->
+<div class="container py-5" style="margin-top:90px;">
     <div class="col-lg-8 mx-auto bg-light p-5 rounded shadow">
-        <h3 class="text-center mb-4 text-primary">Form Edit Berita</h3>
+        <h3 class="text-center mb-4 text-primary">Form Edit Galeri</h3>
 
-        <form action="{{ route('berita.update', $berita) }}" method="POST">
+        <form action="{{ route('galeri.update', $galeri) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
-            <!-- Kategori (ketik nama, akan dibuat otomatis jika belum ada) -->
-            <div class="mb-3">
-                <label class="form-label">Kategori</label>
-                <input type="text" name="kategori_nama" class="form-control"
-                       value="{{ old('kategori_nama', $berita->kategori->nama ?? '') }}"
-                       placeholder="Ketik nama kategori" required>
-                <small class="text-muted">Ketik nama kategori — jika belum ada, akan dibuat otomatis.</small>
-            </div>
+            {{-- Tampilkan error validation --}}
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $err)
+                            <li>{{ $err }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             <!-- Judul -->
             <div class="mb-3">
                 <label class="form-label">Judul</label>
-                <input type="text" name="judul" class="form-control" value="{{ old('judul', $berita->judul) }}"
-                    placeholder="Masukkan judul berita" required>
+                <input type="text" name="judul" class="form-control"
+                       value="{{ old('judul', $galeri->judul) }}"
+                       placeholder="Masukkan judul galeri" required>
             </div>
 
-            <!-- Slug -->
+            <!-- Deskripsi -->
             <div class="mb-3">
-                <label class="form-label">Slug (opsional)</label>
-                <input type="text" name="slug" class="form-control" value="{{ old('slug', $berita->slug) }}"
-                    placeholder="Kosongkan untuk otomatis">
+                <label class="form-label">Deskripsi</label>
+                <textarea name="deskripsi" class="form-control" rows="3"
+                          placeholder="Tuliskan deskripsi singkat">{{ old('deskripsi', $galeri->deskripsi) }}</textarea>
             </div>
 
-            <!-- Isi Berita -->
+            <!-- Upload Foto Baru -->
             <div class="mb-3">
-                <label class="form-label">Isi Berita</label>
-                <textarea name="isi_html" class="form-control" rows="6" placeholder="Tulis isi berita..." required>{{ old('isi_html', $berita->isi_html) }}</textarea>
-            </div>
-
-            <!-- Penulis -->
-            <div class="mb-3">
-                <label class="form-label">Penulis</label>
-                <input type="text" name="penulis" class="form-control" value="{{ old('penulis', $berita->penulis) }}"
-                    placeholder="Nama penulis (opsional)">
-            </div>
-
-            <!-- Status -->
-            <div class="mb-3">
-                <label class="form-label">Status</label>
-                <select name="status" class="form-control" required>
-                    <option value="draft" {{ old('status', $berita->status) == 'draft' ? 'selected' : '' }}>Draft</option>
-                    <option value="published" {{ old('status', $berita->status) == 'published' ? 'selected' : '' }}>Published</option>
-                </select>
-            </div>
-
-            <!-- Tanggal Terbit -->
-            <div class="mb-3">
-                <label class="form-label">Tanggal Terbit (optional)</label>
-                <input type="datetime-local" name="terbit_at" class="form-control"
-                    value="{{ old('terbit_at', $berita->terbit_at ? date('Y-m-d\TH:i', strtotime($berita->terbit_at)) : '') }}">
+                <label class="form-label">Foto (opsional)</label>
+                <input type="file" name="foto" class="form-control" accept="image/*">
+                <small class="text-muted">Biarkan kosong kalau tidak ingin mengganti foto.</small>
             </div>
 
             <!-- Tombol -->
             <div class="text-center">
-                <button type="submit" class="btn btn-primary px-4 py-2">Simpan</button>
-                <a href="{{ route('berita.index') }}" class="btn btn-secondary px-4 py-2">Batal</a>
+                <button type="submit" class="btn btn-primary px-4 py-2">Simpan Perubahan</button>
+                <a href="{{ route('galeri.index') }}" class="btn btn-secondary px-4 py-2">Batal</a>
             </div>
         </form>
     </div>
 </div>
-<!-- Form Edit Berita End -->
+<!-- Form Edit Galeri End -->
 @endsection
