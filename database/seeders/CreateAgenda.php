@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 use App\Models\Agenda;
 
-class AgendaSeeder extends Seeder
+class CreateAgenda extends Seeder
 {
     public function run(): void
     {
