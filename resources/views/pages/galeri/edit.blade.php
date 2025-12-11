@@ -1,55 +1,65 @@
 @extends('layouts.guest.app')
 
 @section('content')
-<!-- Form Edit Galeri Start -->
-<div class="container py-5" style="margin-top:90px;">
-    <div class="col-lg-8 mx-auto bg-light p-5 rounded shadow">
-        <h3 class="text-center mb-4 text-primary">Form Edit Galeri</h3>
-
-        <form action="{{ route('galeri.update', $galeri) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
-
-            {{-- Tampilkan error validation --}}
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul class="mb-0">
-                        @foreach ($errors->all() as $err)
-                            <li>{{ $err }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            <!-- Judul -->
-            <div class="mb-3">
-                <label class="form-label">Judul</label>
-                <input type="text" name="judul" class="form-control"
-                       value="{{ old('judul', $galeri->judul) }}"
-                       placeholder="Masukkan judul galeri" required>
-            </div>
-
-            <!-- Deskripsi -->
-            <div class="mb-3">
-                <label class="form-label">Deskripsi</label>
-                <textarea name="deskripsi" class="form-control" rows="3"
-                          placeholder="Tuliskan deskripsi singkat">{{ old('deskripsi', $galeri->deskripsi) }}</textarea>
-            </div>
-
-            <!-- Upload Foto Baru -->
-            <div class="mb-3">
-                <label class="form-label">Foto (opsional)</label>
-                <input type="file" name="foto" class="form-control" accept="image/*">
-                <small class="text-muted">Biarkan kosong kalau tidak ingin mengganti foto.</small>
-            </div>
-
-            <!-- Tombol -->
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary px-4 py-2">Simpan Perubahan</button>
-                <a href="{{ route('galeri.index') }}" class="btn btn-secondary px-4 py-2">Batal</a>
-            </div>
-        </form>
+    <!-- Header Start -->
+    <div class="container-fluid bg-breadcrumb" style="margin-top: -30px;">
+        <div class="container text-center py-5 mt-0" style="max-width: 900px;">
+            <h3 class="text-white display-3 mb-4">Form Edit Data</h3>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('galeri.index') }}">Galeri</a></li>
+                <li class="breadcrumb-item active text-white">Edit</li>
+            </ol>
+        </div>
     </div>
-</div>
-<!-- Form Edit Galeri End -->
+    <!-- Form Edit Galeri Start -->
+    <div class="container py-5">
+        <div class="col-lg-8 mx-auto bg-light p-5 rounded shadow">
+            <h3 class="text-center mb-4 text-primary">Form Edit Galeri</h3>
+
+            <form action="{{ route('galeri.update', $galeri) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+
+                {{-- Tampilkan error validation --}}
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $err)
+                                <li>{{ $err }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <!-- Judul -->
+                <div class="mb-3">
+                    <label class="form-label">Judul</label>
+                    <input type="text" name="judul" class="form-control" value="{{ old('judul', $galeri->judul) }}"
+                        placeholder="Masukkan judul galeri" required>
+                </div>
+
+                <!-- Deskripsi -->
+                <div class="mb-3">
+                    <label class="form-label">Deskripsi</label>
+                    <textarea name="deskripsi" class="form-control" rows="3" placeholder="Tuliskan deskripsi singkat">{{ old('deskripsi', $galeri->deskripsi) }}</textarea>
+                </div>
+
+                <!-- Upload Foto Baru (Multiple) -->
+                <div class="mb-3">
+                    <label class="form-label">Foto (opsional)</label>
+                    <input type="file" name="foto[]" class="form-control" accept="image/*" multiple>
+                    <small class="text-muted">Bisa upload lebih dari 1 foto. Biarkan kosong kalau tidak ingin menambah foto
+                        baru.</small>
+                </div>
+
+                <!-- Tombol -->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary px-4 py-2">Simpan Perubahan</button>
+                    <a href="{{ route('galeri.index') }}" class="btn btn-secondary px-4 py-2">Batal</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Form Edit Galeri End -->
 @endsection

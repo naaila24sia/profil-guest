@@ -1,9 +1,8 @@
 <?php
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Berita extends Model
 {
@@ -41,4 +40,12 @@ class Berita extends Model
     {
         return $this->belongsTo(KategoriBerita::class, 'kategori_id', 'kategori_id');
     }
+
+    public function media()
+    {
+        return $this->hasMany(Media::class, 'ref_id', 'berita_id')
+            ->where('ref_table', 'berita')
+            ->orderBy('sort_order', 'asc');
+    }
+
 }

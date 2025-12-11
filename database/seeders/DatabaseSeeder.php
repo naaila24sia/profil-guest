@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             CreateFirstUser::class,
             CreateGaleri::class,
             CreateWarga::class,
+            CreateAgenda::class,
         ]);
     }
 

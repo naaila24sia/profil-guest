@@ -97,8 +97,18 @@
         }
     </style>
 
+    <!-- Header Start -->
+    <div class="container-fluid bg-breadcrumb" style="margin-top: -30px;">
+        <div class="container text-center py-5 mt-0" style="max-width: 900px;">
+            <h3 class="text-white display-3 mb-4">Data Warga</h3>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                <li class="breadcrumb-item active text-white">Warga</li>
+            </ol>
+        </div>
+    </div>
     <!-- Data Warga Section Start -->
-    <div class="container py-5 mt-5 pt-5">
+    <div class="container py-5 mt-5 pt-0">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div class="text-start">
                 <h5 class="text-uppercase text-primary mb-1">Data</h5>

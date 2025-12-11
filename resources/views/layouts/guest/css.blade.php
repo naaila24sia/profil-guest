@@ -5,11 +5,12 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
 
-     <!-- Spinner Start -->
-        <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
-            <div class="spinner-grow text-primary" role="status"></div>
-        </div>
-        <!-- Spinner End -->
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" role="status"></div>
+    </div>
+    <!-- Spinner End -->
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,8 +44,9 @@
     <!-- Style Floating Button -->
     <style>
         .navbar-nav .nav-link:hover {
-    color: #F8B968 !important;   /* warna kuning kamu */
-}
+            color: #F8B968 !important;
+            /* warna kuning kamu */
+        }
 
         .float-whatsapp {
             position: fixed;
@@ -69,6 +71,303 @@
             background-color: #128C7E;
             transform: scale(1.1);
         }
+
+        /* jika header situs fixed/menempel di atas, atur tinggi ini agar konten tidak tertutup */
+        .site-top-space {
+            height: 120px;
+            /* <-- ubah angka ini sesuai tinggi headermu (mis. 150px jika header lebih besar) */
+        }
+
+        /* card styling (sama seperti sebelumnya) */
+        .cat-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            padding: 20px 24px;
+            margin-bottom: 18px;
+            transition: 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .cat-info {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex: 1;
+        }
+
+        .cat-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #F5A97F, #E27258);
+            color: #fff;
+            font-size: 22px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cat-details h5 {
+            margin-bottom: 6px;
+            font-weight: 700;
+            color: #222;
+            font-size: 1.05rem;
+        }
+
+        .cat-details p {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .cat-meta {
+            margin-top: 6px;
+            font-size: 13px;
+            color: #7a7a7a;
+        }
+
+        .cat-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            margin-left: 18px;
+        }
+
+        .card-footer {
+            border-top: none !important;
+            /* Hilangkan garis */
+            background-color: white;
+            /* Biar tetap rapi */
+            margin-top: 0;
+            padding-top: 15px;
+            /* Jarak tombol dari konten atas */
+        }
+
+        .btn-add {
+            background-color: #F8B968;
+            border: none;
+            color: #000;
+            ;
+            padding: 6px 14px;
+            font-weight: 700;
+        }
+
+        .btn-edit {
+            background-color: #ffc107;
+            border: none;
+            color: #000;
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: 0.3s;
+            width: 90px;
+        }
+
+        .btn-edit:hover {
+            background-color: #e0a800;
+            color: #fff;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            border: none;
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: 0.3s;
+            width: 90px;
+        }
+
+        .btn-delete:hover {
+            background-color: #bb2d3b;
+        }
+
+        @media (max-width: 768px) {
+            .cat-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .cat-actions {
+                flex-direction: row;
+            }
+        }
+
+        .btn-tambah-kategori {
+            background: #F7B56A;
+            /* warna sama seperti contoh */
+            color: #000;
+            font-weight: 700;
+            padding: 10px 18px;
+            border-radius: 4px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-tambah-kategori .plus-icon {
+            width: 22px;
+            height: 22px;
+            border: 2px solid #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .btn-tambah-kategori:hover {
+            background: #e9a85f;
+        }
+
+        .galeri-card {
+            transition: all 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .galeri-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .berita-card {
+            transition: all 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .berita-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .event-item {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .event-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .agenda-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .user-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            transition: 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-avatar {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0d6efd, #007bff);
+            color: #fff;
+            font-size: 28px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-details h5 {
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #222;
+        }
+
+        .user-details p {
+            margin: 0;
+            font-size: 15px;
+            color: #555;
+        }
+
+        .user-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-edit {
+            background-color: #ffc107;
+            border: none;
+            color: #000;
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: 0.3s;
+            width: 90px;
+        }
+
+        .btn-edit:hover {
+            background-color: #e0a800;
+            color: #fff;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            border: none;
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: 0.3s;
+            width: 90px;
+        }
+
+        .btn-delete:hover {
+            background-color: #bb2d3b;
+        }
+
+        @media (max-width: 768px) {
+            .user-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .user-actions {
+                flex-direction: row;
+                margin-top: 15px;
+            }
+        }
+        
     </style>
 
     <!-- Pastikan Font Awesome sudah aktif -->

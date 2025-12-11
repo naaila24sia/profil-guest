@@ -1,8 +1,20 @@
 @extends('layouts.guest.app')
 
 @section('content')
+    <!-- Header Start -->
+    <div class="container-fluid bg-breadcrumb" style="margin-top: -30px;">
+        <div class="container text-center py-5 mt-0" style="max-width: 900px;">
+            <h3 class="text-white display-3 mb-4">Form Create Data</h3>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('user.index') }}">User</a></li>
+                <li class="breadcrumb-item active text-white">Tambah</li>
+            </ol>
+        </div>
+    </div>
+
     <!-- Form Start -->
-    <div class="container py-5" style="margin-top:90px;">
+    <div class="container py-5">
         <div class="col-lg-8 mx-auto bg-light p-5 rounded shadow">
             <h3 class="text-center mb-4 text-primary">Form Tambah User</h3>
             <form action="{{ route('user.store') }}" method="POST">
@@ -25,7 +37,8 @@
 
                 <div class="mb-3">
                     <label class="form-label">Konfirmasi Password</label>
-                    <input type="password" name="password_confirmation" class="form-control" placeholder="Ulangi password" required>
+                    <input type="password" name="password_confirmation" class="form-control" placeholder="Ulangi password"
+                        required>
                 </div>
 
                 <div class="text-center">

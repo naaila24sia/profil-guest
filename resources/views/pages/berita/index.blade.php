@@ -1,22 +1,27 @@
 @extends('layouts.guest.app')
 
 @section('content')
-    <div class="container-fluid blog py-5">
+    <!-- Header Start -->
+    <div class="container-fluid bg-breadcrumb" style="margin-top: -30px;">
+        <div class="container text-center py-5 mt-0" style="max-width: 900px;">
+            <h3 class="text-white display-3 mb-4">Berita</h3>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                <li class="breadcrumb-item active text-white">Berita</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="container-fluid blog pt-3 pb-5">
         <div class="container py-5">
 
-            <div class="text-center mx-auto pb-5" style="max-width: 800px;">
+            {{-- TITLE --}}
+            <div class="text-center mx-auto pb-5" style="max-width: 600px;">
                 <h5 class="text-uppercase text-primary">Berita</h5>
                 <h1 class="mb-0">Berita Bina Desa</h1>
             </div>
 
-            {{-- Tombol Tambah Data --}}
-            <div class="mb-4 d-flex justify-content-between align-items-center">
-                <a href="{{ route('berita.create') }}" class="btn btn-primary">
-                    <i class="bi bi-plus-circle"></i> Tambah Data
-                </a>
-            </div>
-
-            {{-- Flash Messages --}}
+            {{-- FLASH MESSAGE --}}
             @if (session('create'))
                 <div class="alert alert-success alert-dismissible fade show">
                     {{ session('create') }}
@@ -38,83 +43,114 @@
                 </div>
             @endif
 
-            {{-- search form --}}
-            <form method="GET" action="{{ route('galeri.index') }}">
-                <div class="col-md-4 mb-4">
-                    <div class="input-group">
-                        <input type="text" name="search" class="form-control" id="exampleInputIconRight"
-                            value="{{ request('search') }}" placeholder="Search" aria-label="Search">
-                        <button type="submit" class="btn btn-outline-secondary" id="basic-addon2"
-                            aria-label="Search button">
+            <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+
+                {{-- SEARCH --}}
+                <form method="GET" action="{{ route('berita.index') }}" class="mb-2">
+                    <div class="input-group" style="width: 350px;">
+                        <input type="text" name="search" class="form-control" value="{{ request('search') }}"
+                            placeholder="Search...">
+                        <button type="submit" class="btn btn-outline-secondary">
                             <i class="bi bi-search"></i>
                         </button>
+
                         @if (request('search'))
-                            <a href="{{ request()->fullUrlWithQuery(['search' => null]) }}"
-                                class="btn btn-outline-secondary ml-3" id="clear-search"> Clear</a>
+                            <a href="{{ route('berita.index') }}" class="btn btn-outline-secondary">Clear</a>
                         @endif
                     </div>
-                </div>
-            </form>
+                </form>
 
-            {{-- Berita List --}}
+                {{-- BUTTON TAMBAH --}}
+                <a href="{{ route('berita.create') }}" class="btn btn-primary mb-2">
+                    <i class="bi bi-plus-circle"></i> Tambah Data
+                </a>
+
+            </div>
+
+
+            {{-- LIST BERITA --}}
             <div class="row g-4">
                 @forelse ($berita as $b)
-                    <div class="col-lg-6 col-xl-4">
-                        <div class="blog-item">
-                            <div class="text-dark border p-4" style="border-radius:10px;">
+                    @php
+                        $media = \App\Models\Media::where('ref_table', 'berita')
+                            ->where('ref_id', $b->berita_id)
+                            ->orderBy('media_id', 'desc')
+                            ->first();
 
+                    @endphp
+
+                    <div class="col-lg-6 col-xl-4">
+                        <div class="event-item rounded border overflow-hidden h-100" style="background-color: white;">
+
+                            {{-- COVER FOTO --}}
+                            <img src="{{ $media
+                                ? asset('storage/uploads/berita/' . $media->file_name)
+                                : 'https://via.placeholder.com/600x300?text=No+Image' }}"
+                                style="width:100%; height:230px; object-fit:cover;">
+
+                            {{-- CONTENT --}}
+                            <div class="event-content p-4">
+
+                                {{-- JUDUL --}}
                                 <h4 class="mb-3">{{ $b->judul }}</h4>
 
-                                {{-- Excerpt isi --}}
+                                {{-- EXCERPT --}}
                                 <p class="mb-4">
                                     {{ \Illuminate\Support\Str::limit(strip_tags($b->isi_html), 120, '...') }}
                                 </p>
 
-                                {{-- Info Emoji (kategori, penulis, terbit) --}}
-                                <div class="mt-3 small text-muted d-flex flex-wrap gap-4 align-items-center">
+                                {{-- INFO --}}
+                                <div class="small text-muted d-flex flex-wrap gap-4 mb-3">
                                     <span>📂 <strong>{{ $b->kategori->nama ?? '-' }}</strong></span>
                                     <span>✍️ <strong>{{ $b->penulis ?? '-' }}</strong></span>
                                     <span>🕒 <strong>{{ $b->terbit_at ?? '-' }}</strong></span>
                                 </div>
 
-                                {{-- Tombol (DI BAWAH META) --}}
-                                <div class="mt-3 d-flex gap-2">
-                                    {{-- Read More --}}
-                                    <a href="{{ route('berita.show', $b->slug ?? $b->berita_id) }}"
-                                        class="btn text-white py-2 px-3" style="background:#E27258; border-color:#E27258;">
-                                        Read More
+                                {{-- BUTTON ROW --}}
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a href="{{ route('berita.show', $b->berita_id) }}"
+                                        class="btn btn-primary text-white py-2 px-3">
+                                        Baca Selengkapnya
                                     </a>
 
-                                    {{-- Edit --}}
-                                    <a href="{{ route('berita.edit', $b->berita_id) }}"
-                                        class="btn btn-outline-secondary py-2 px-3"
-                                        style="background:#ffc107; color: #000;">
-                                        Edit
-                                    </a>
+                                    <div class="d-flex gap-2">
+                                        {{-- EDIT --}}
+                                        <a href="{{ route('berita.edit', $b->berita_id) }}"
+                                            class="btn btn-warning btn-sm px-2 py-1">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
 
-                                    {{-- Hapus --}}
-                                    <form action="{{ route('berita.destroy', $b->berita_id) }}" method="POST"
-                                        onsubmit="return confirm('Hapus berita ini?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger py-2 px-3">Hapus</button>
-                                    </form>
+                                        {{-- DELETE --}}
+                                        <form action="{{ route('berita.destroy', $b->berita_id) }}" method="POST"
+                                            onsubmit="return confirm('Hapus Berita?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger btn-sm px-2 py-1">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
 
                             </div>
                         </div>
                     </div>
+
                 @empty
                     <div class="col-12">
-                        <div class="alert alert-secondary">Belum ada berita.</div>
+                        <div class="alert alert-secondary text-center">
+                            Belum ada berita.
+                        </div>
                     </div>
                 @endforelse
 
-                <!-- PAGINATION -->
+                {{-- PAGINATION --}}
                 <div class="mt-3 d-flex justify-content-center">
                     {{ $berita->links('pagination::bootstrap-5') }}
                 </div>
+
             </div>
+
         </div>
     </div>
 @endsection

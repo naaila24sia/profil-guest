@@ -35,15 +35,17 @@ class UserController extends Controller
     {
         $request->validate([
             'name'     => 'required',
-            'email'    => 'required',
+            'email'    => 'required|email',
             'password' => 'required',
+            'role'     => 'required',
         ]);
 
-        $data['name']     = $request->name;
-        $data['email']    = $request->email;
-        $data['password'] = Hash::make($request->password); // enkripsi password
-
-        User::create($data);
+        User::create([
+            'name'     => $request->name,
+            'email'    => $request->email,
+            'password' => bcrypt($request->password),
+            'role'     => $request->role,
+        ]);
 
         return redirect()->route('user.index')->with('create', 'Penambahan Data Berhasil!');
     }

@@ -7,8 +7,7 @@
     <title>Login</title>
 
     {{-- kalau kamu mau pakai CSS dari folder layouts  --}}
-    @include('layouts.user.index.css')
-
+    {{-- @include('layouts.guest.css') --}}
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -109,8 +108,8 @@
             @csrf
 
             <div class="form-group">
-                <input type="email" id="email" name="email" placeholder="Email"
-                    value="{{ old('email') }}" required>
+                <input type="email" id="email" name="email" placeholder="Email" value="{{ old('email') }}"
+                    required>
             </div>
 
             <div class="form-group">

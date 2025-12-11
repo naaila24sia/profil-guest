@@ -2,92 +2,156 @@
 
 @section('content')
 
-    <!-- Galeri Section Start -->
-    <div class="container py-5 mt-5 pt-5" style="margin-top: 140px;">
+<!-- Header Start -->
+    <div class="container-fluid bg-breadcrumb" style="margin-top: -30px;">
+        <div class="container text-center py-5 mt-0" style="max-width: 900px;">
+            <h3 class="text-white display-3 mb-4">Galeri</h3>
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                    <li class="breadcrumb-item active text-white">Galeri</li>
+                </ol>
+        </div>
+    </div>
+
+    <div class="container py-5 mt-5 pt-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div class="text-start">
                 <h5 class="text-uppercase text-primary mb-1">DOKUMENTASI</h5>
                 <h1 class="mb-0">Galeri Kegiatan Terbaru</h1>
             </div>
 
-            <!-- Tombol Tambah Data -->
             <a href="{{ route('galeri.create') }}" class="btn btn-primary">
                 <i class="bi bi-plus-circle"></i> Tambah Data
             </a>
         </div>
 
-        {{-- Flash message (notifikasi sukses/error) --}}
+        {{-- Flash message --}}
         @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <div class="alert alert-success alert-dismissible fade show">
                 {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         @endif
 
         @if (session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <div class="alert alert-danger alert-dismissible fade show">
                 {{ session('error') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         @endif
 
-        {{-- search form --}}
+        {{-- Search --}}
         <form method="GET" action="{{ route('galeri.index') }}">
             <div class="col-md-4 mb-4">
                 <div class="input-group">
-                    <input type="text" name="search" class="form-control" id="exampleInputIconRight"
-                        value="{{ request('search') }}" placeholder="Search" aria-label="Search">
-                    <button type="submit" class="btn btn-outline-secondary" id="basic-addon2" aria-label="Search button">
+                    <input type="text" name="search" class="form-control" value="{{ request('search') }}"
+                        placeholder="Search">
+                    <button type="submit" class="btn btn-outline-secondary">
                         <i class="bi bi-search"></i>
                     </button>
+
                     @if (request('search'))
-                        <a href="{{ request()->fullUrlWithQuery(['search' => null]) }}"
-                            class="btn btn-outline-secondary ml-3" id="clear-search"> Clear</a>
+                        <a href="{{ route('galeri.index') }}" class="btn btn-outline-secondary">Clear</a>
                     @endif
                 </div>
             </div>
         </form>
 
-        <div class="row justify-content-start">
+        {{-- Galeri List --}}
+        <div class="row g-4">
             @forelse ($galeris as $item)
-                <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
-                    <div class="service-item text-center">
-                        <img src="{{ asset('storage/' . $item->foto) }}" class="img-fluid w-100"
-                            alt="{{ $item->judul }}">
-                    </div>
+                @php
+                    $media = $item->media; // semua foto
+                    $cover = $media->first(); // foto utama
+                @endphp
 
-                    <h5 class="mt-3 fw-bold">{{ $item->judul }}</h5>
-                    <p class="text-muted">{{ $item->deskripsi }}</p>
+                <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="card h-100 galeri-card">
 
-                    <!-- Tombol Edit dan Hapus SELALU tampil -->
-                    <div class="d-flex justify-content-center gap-2 mt-2">
-                        <a href="{{ route('galeri.edit', $item) }}" class="btn btn-sm btn-warning px-3">
-                            <i class="bi bi-pencil"></i> Edit
-                        </a>
-                        <form action="{{ route('galeri.destroy', $item) }}" method="POST"
-                            onsubmit="return confirm('Yakin ingin menghapus foto ini?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger px-3">
-                                <i class="bi bi-trash"></i> Hapus
-                            </button>
-                        </form>
+
+                        {{-- FOTO UTAMA --}}
+                        @if ($cover)
+                            <img id="mainImage{{ $item->galeri_id }}"
+                                src="{{ asset('storage/uploads/galeri/' . $cover->file_name) }}" class="mb-3 w-100"
+                                style="height:200px; object-fit:cover; border-radius:6px;">
+                        @else
+                            <img id="mainImage{{ $item->galeri_id }}"
+                                src="https://via.placeholder.com/600x300?text=No+Image" class="mb-3 w-100"
+                                style="height:200px; object-fit:cover; border-radius:6px;">
+                        @endif
+
+                        {{-- THUMBNAIL (maks 4 foto) --}}
+                        <div class="d-flex gap-2 mb-3 flex-wrap px-3">
+                            @foreach ($media->take(3) as $m)
+                                <img src="{{ asset('storage/uploads/galeri/' . $m->file_name) }}"
+                                    onclick="document.getElementById('mainImage{{ $item->galeri_id }}').src=this.src"
+                                    style="
+                                        height:60px;
+                                        width:60px;
+                                        object-fit:cover;
+                                        border-radius:5px;
+                                        cursor:pointer;
+                                        border:2px solid #eee;
+                                    ">
+                            @endforeach
+
+                            {{-- Tombol Lihat Semua Foto --}}
+                            @if ($media->count() > 3)
+                                <a href="{{ route('galeri.show', $item->galeri_id) }}"
+                                    class="d-flex justify-content-center align-items-center"
+                                    style="
+                                        height:60px;
+                                        width:60px;
+                                        border-radius:5px;
+                                        background:#f0f0f0;
+                                        font-size:14px;
+                                        text-decoration:none;
+                                        color:#333;
+                                        border:2px solid #eee;
+                                    ">
+                                    +{{ $media->count() - 3 }}
+                                </a>
+                            @endif
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $item->judul }}</h5>
+                            <p class="card-text text-truncate">{{ $item->deskripsi }}</p>
+                        </div>
+
+                        {{-- ACTION BUTTONS --}}
+                        <div class="card-footer bg-white d-flex justify-content-center gap-2">
+                            <a href="{{ route('galeri.show', $item) }}" class="btn btn-primary btn-sm px-3">
+                                <i class="bi bi-eye"></i> Detail
+                            </a>
+
+                            <a href="{{ route('galeri.edit', $item) }}" class="btn btn-warning btn-sm px-3">
+                                <i class="bi bi-pencil"></i> Edit
+                            </a>
+
+                            <form action="{{ route('galeri.destroy', $item) }}" method="POST"
+                                onsubmit="return confirm('Yakin ingin menghapus?')">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger btn-sm px-3">
+                                    <i class="bi bi-trash"></i> Hapus
+                                </button>
+                            </form>
+                        </div>
+
                     </div>
                 </div>
+
             @empty
                 <div class="col-12 text-center">
                     <p>Belum ada data galeri.</p>
                 </div>
             @endforelse
-        </div>
-    </div>
 
-    <!-- pagination -->
-        <div class="mt-3 d-flex justify-content-center">
+        </div>
+
+        <div class="mt-4 d-flex justify-content-center">
             {{ $galeris->links('pagination::bootstrap-5') }}
         </div>
     </div>
-
-    <!-- Galeri Section End -->
-
 @endsection

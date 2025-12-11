@@ -1,8 +1,20 @@
 @extends('layouts.guest.app')
 
 @section('content')
-<!-- Form Start (content) -->
-    <<div class="container py-5" style="margin-top:90px;">
+    <!-- Header Start -->
+    <div class="container-fluid bg-breadcrumb" style="margin-top: -30px;">
+        <div class="container text-center py-5 mt-0" style="max-width: 900px;">
+            <h3 class="text-white display-3 mb-4">Form Tambah Data</h3>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('galeri.index') }}">Galeri</a></li>
+                <li class="breadcrumb-item active text-white">Tambah</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Form Start (content) -->
+    <<div class="container py-5">
         <div class="col-lg-8 mx-auto bg-light p-5 rounded shadow">
             <h3 class="text-center mb-4 text-primary">Form Tambah Galeri</h3>
             <form action="{{ route('galeri.store') }}" method="POST" enctype="multipart/form-data">
@@ -29,7 +41,6 @@
                 </div>
             </form>
         </div>
-    </div>
-    <!-- Form End (content) -->
-
-@endsection
+        </div>
+        <!-- Form End (content) -->
+    @endsection

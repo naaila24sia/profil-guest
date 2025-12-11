@@ -3,11 +3,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Galeri extends Model
+class Agenda extends Model
 {
-    protected $table      = 'galeri';
-    protected $primaryKey = 'galeri_id';
-    protected $fillable   = ['judul', 'deskripsi', 'foto'];
+    protected $table = 'agenda';
+    protected $primaryKey = 'agenda_id';
+    protected $fillable = [
+        'judul',
+        'lokasi',
+        'tanggal_mulai',
+        'tanggal_selesai',
+        'penyelenggara',
+        'deskripsi'
+    ];
 
     public function scopeSearch($query, $request, array $columns)
     {
@@ -20,11 +27,12 @@ class Galeri extends Model
         }
     }
 
+    // Relasi ke tabel media
+    // Semua file agenda akan disimpan di media dengan ref_table = 'agenda'
     public function media()
     {
-        return $this->hasMany(Media::class, 'ref_id', 'galeri_id')
-            ->where('ref_table', 'galeri')
+        return $this->hasMany(Media::class, 'ref_id', 'agenda_id')
+            ->where('ref_table', 'agenda')
             ->orderBy('sort_order');
     }
-
 }

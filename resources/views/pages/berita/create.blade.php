@@ -1,6 +1,18 @@
 @extends('layouts.guest.app')
 
 @section('content')
+<!-- Header Start -->
+    <div class="container-fluid bg-breadcrumb" style="margin-top: -30px;">
+        <div class="container text-center py-5 mt-0" style="max-width: 900px;">
+            <h3 class="text-white display-3 mb-4">Form Tambah Data</h3>
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('berita.index') }}">Berita</a></li>
+                    <li class="breadcrumb-item active text-white">Tambah</li>
+                </ol>
+        </div>
+    </div>
+
     <!-- Form Start (content) -->
     <div class="container py-5" style="margin-top:80px;">
         <div class="col-lg-8 mx-auto bg-light p-5 rounded shadow">
@@ -51,6 +63,11 @@
                 <div class="mb-3">
                     <label class="form-label">Tanggal Terbit (optional)</label>
                     <input type="datetime-local" name="terbit_at" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label>Upload Foto</label>
+                    <input type="file" name="files[]" class="form-control" multiple>
                 </div>
 
                 <div class="text-center">

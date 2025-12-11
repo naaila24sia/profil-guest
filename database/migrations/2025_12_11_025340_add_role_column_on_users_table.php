@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('profil', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('role')->after('password');
         });
     }
 
@@ -22,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('profil');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('role');
+        });
     }
 };

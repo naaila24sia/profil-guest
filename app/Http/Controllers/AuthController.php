@@ -1,79 +1,64 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    /**
-     * Tampilkan halaman login
-     */
+    //  TAMPILKAN FORM LOGIN
     public function index()
     {
-        return view('pages.auth.login-form');
+        return view('pages.auth.login');
     }
 
-    /**
-     * Proses login user
-     */
+    // PROSES LOGIN
     public function login(Request $request)
     {
-        $rules = [
-            'email' => 'required|email',
-            'password' => ['required', 'min:3', 'regex:/[A-Z]/'],
-        ];
+        // Validasi sederhana sesuai modul
+        $request->validate([
+            'email'    => 'required',
+            'password' => 'required',
+        ]);
 
-        $messages = [
-            'email.required' => 'Email wajib diisi.',
-            'email.email' => 'Format email tidak valid.',
-            'password.required' => 'Password wajib diisi.',
-            'password.min' => 'Password minimal 3 karakter.',
-            'password.regex' => 'Password harus mengandung setidaknya satu huruf kapital.',
-        ];
+        // $dataLogin = [
+        //     'email'    => $request->email,
+        //     'password' => $request->password,
+        // ];
 
-        $request->validate($rules, $messages);
-
-        // Cek user berdasarkan email
+        // Auth::attempt = Auth::login() versi modul
         $user = User::where('email', $request->email)->first();
 
-        if (!$user) {
-            return back()->withErrors(['Email tidak ditemukan'])->withInput();
+        if ($user && Hash::check($request->password, $user->password)) {
+            Auth::login($user);
+
+            session([
+                'last_login' => now()->setTimezone('Asia/Jakarta')->format('d M Y H:i') . ' WIB',
+            ]);
+            return redirect()->route('dashboard');
         }
 
-        // Cek password
-        if (!Hash::check($request->password, $user->password)) {
-            return back()->withErrors(['Password salah'])->withInput();
-        }
-
-        // Simpan session
-        session(['user_id' => $user->id]);
-
-        // Arahkan ke dashboard
-        return redirect()->route('dashboard');
+        return back()->withErrors(['Login gagal, periksa email atau password.']);
     }
 
-    /**
-     * Logout user
-     */
+    // LOGOUT
     public function logout()
     {
-        session()->forget('user_id');
-        return redirect()->route('login.form')->with('success', 'Anda telah logout.');
+        Auth::logout(); // Modul: Auth::logout()
+
+        return redirect()->route('login.form');
     }
 
-    /**
-     * Halaman Dashboard setelah login
-     */
+    // HALAMAN DASHBOARD (Hanya jika login)
     public function dashboard()
     {
-        if (!session('user_id')) {
-            return redirect()->route('login.form')->withErrors(['Silakan login terlebih dahulu']);
+        // Modul: Auth::check()
+        if (! Auth::check()) {
+            return redirect()->route('login.form')->withErrors(['Silakan login terlebih dahulu.']);
         }
 
-        $user = User::find(session('user_id'));
-        return view('dashboard', compact('user'));
+        return view('dashboard');
     }
 }

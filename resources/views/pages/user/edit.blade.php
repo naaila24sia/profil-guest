@@ -1,8 +1,20 @@
 @extends('layouts.guest.app')
 
 @section('content')
+    <!-- Header Start -->
+    <div class="container-fluid bg-breadcrumb" style="margin-top: -30px;">
+        <div class="container text-center py-5 mt-0" style="max-width: 900px;">
+            <h3 class="text-white display-3 mb-4">Form Edit Data</h3>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('user.index') }}">User</a></li>
+                <li class="breadcrumb-item active text-white">Edit</li>
+            </ol>
+        </div>
+    </div>
+
     <!-- Form Edit User Start -->
-    <div class="container py-5" style="margin-top:90px;">
+    <div class="container py-5">
         <div class="col-lg-8 mx-auto bg-light p-5 rounded shadow">
             <h3 class="text-center mb-4 text-primary">Form Edit User</h3>
 
@@ -27,8 +39,7 @@
                 <!-- Password -->
                 <div class="mb-3">
                     <label class="form-label">Password (isi jika ingin ubah)</label>
-                    <input type="password" name="password" class="form-control"
-                        placeholder="Kosongkan jika tidak diubah">
+                    <input type="password" name="password" class="form-control" placeholder="Kosongkan jika tidak diubah">
                 </div>
 
                 <!-- Konfirmasi Password -->
