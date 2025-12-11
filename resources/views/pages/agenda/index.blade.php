@@ -78,10 +78,12 @@
                                 {{-- FOTO / POSTER --}}
                                 @if ($ag->media->first())
                                     <img src="{{ asset('storage/uploads/agenda/' . $ag->media->first()->file_name) }}"
-                                        class="agenda-image">
+                                        class="agenda-image" style="width:100%; height:250px; object-fit:cover;">
                                 @else
-                                    <span class="text-muted">Tidak ada cover</span>
+                                    <img src="{{ asset('assets-guest/img/placeholder.jpgg') }}" class="agenda-image"
+                                        style="width:100%; height:250px; object-fit:cover; opacity:0.7;">
                                 @endif
+
 
 
                                 <div class="event-content p-4">
