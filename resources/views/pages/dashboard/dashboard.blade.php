@@ -31,7 +31,7 @@
                     <h1 class="mb-4">{{ $profil->nama_desa ?? 'Nama Desa' }}</h1>
 
                     <p class="fs-5 text-muted mb-4">
-                        Desa {{ $profil->nama_desa ?? 'Nama Desa' }} merupakan desa yang terletak di
+                        {{ $profil->nama_desa ?? 'Nama Desa' }} merupakan desa yang terletak di
                         Kecamatan {{ $profil->kecamatan ?? '-' }},
                         Kabupaten {{ $profil->kabupaten ?? '-' }},
                         Provinsi {{ $profil->provinsi ?? '-' }}.
