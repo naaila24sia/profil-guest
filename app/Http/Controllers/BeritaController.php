@@ -40,7 +40,7 @@ class BeritaController extends Controller
             'penulis'     => 'nullable|string|max:100',
             'status'      => 'required|in:draft,published',
             'terbit_at'   => 'nullable|date',
-            'files.*'     => 'nullable|file|max:2048',
+            'files.*'     => 'nullable|file|max:5120',
         ]);
 
         $data = [
@@ -116,7 +116,7 @@ class BeritaController extends Controller
             'penulis'     => 'nullable|string|max:100',
             'status'      => 'required|in:draft,published',
             'terbit_at'   => 'nullable|date',
-            'files.*'     => 'nullable|file|max:2048',
+            'files.*'     => 'nullable|file|max:5120',
         ]);
 
         $berita->update([
@@ -162,7 +162,7 @@ class BeritaController extends Controller
     public function uploadMedia(Request $request, $id)
     {
         $request->validate([
-            'media.*' => 'required|file|mimes:jpg,jpeg,png,pdf|max:4000',
+            'media.*' => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
         ]);
 
         if ($request->hasFile('media')) {

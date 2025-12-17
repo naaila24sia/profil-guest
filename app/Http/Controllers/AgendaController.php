@@ -33,7 +33,7 @@ class AgendaController extends Controller
             'tanggal_mulai'   => 'required|date',
             'tanggal_selesai' => 'required|date',
             'deskripsi'       => 'required',
-            'foto'            => 'nullable|image|max:2048',
+            'foto'            => 'nullable|image|max:5120',
         ]);
 
         $agenda = Agenda::create([
@@ -89,7 +89,7 @@ class AgendaController extends Controller
             'tanggal_mulai'   => 'required|date',
             'tanggal_selesai' => 'required|date',
             'deskripsi'       => 'required',
-            'foto'            => 'nullable|image|max:2048',
+            'foto'            => 'nullable|image|max:5120',
         ]);
 
         $agenda->update([
