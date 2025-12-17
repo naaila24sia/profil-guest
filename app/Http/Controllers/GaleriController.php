@@ -117,7 +117,7 @@ class GaleriController extends Controller
             foreach ($request->file('foto') as $key => $file) {
 
                 $filename = time() . '_' . $file->getClientOriginalName();
-                $file->storeAs('public/uploads/galeri', $filename, 'public');
+                $file->storeAs('uploads/galeri', $filename, 'public');
 
                 Media::create([
                     'ref_table'  => 'galeri',
