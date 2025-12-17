@@ -46,16 +46,15 @@
         <div class="mb-4 d-flex justify-content-center">
             <div class="rounded overflow-hidden shadow-sm" style="width:90%; max-width:1100px;">
                 @if ($cover)
-                    <img src="{{ $cover
-                        ? asset('storage/uploads/berita/' . $cover->file_name)
-                        : 'https://via.placeholder.com/900x430?text=No+Image' }}"
-                        class="w-100" style="height:430px; object-fit:cover;">
+                    <img src="{{ asset('storage/uploads/berita/' . $cover->file_name) }}" class="w-100"
+                        style="height:430px; object-fit:cover;">
                 @else
-                    <img src="https://via.placeholder.com/900x430?text=No+Image" class="w-100"
+                    <img src="{{ asset('assets-guest/img/placeholder.jpg') }}" class="w-100"
                         style="height:430px; object-fit:cover;">
                 @endif
             </div>
         </div>
+
 
         {{-- ISI BERITA --}}
         <div class="mb-5">

@@ -25,14 +25,19 @@
                     <div class="media-wrapper rounded shadow-sm overflow-hidden position-relative"
                         style="width:100%; height:230px; background:#f5f5f5;">
 
-                        {{-- Tombol Delete --}}
-                        <form action="{{ route('galeri.deleteMedia', $m->media_id) }}" method="POST"
-                            onsubmit="return confirm('Hapus media ini?')"
-                            style="position:absolute; top:5px; right:5px; z-index:10;">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-sm btn-danger">✕</button>
-                        </form>
+                        @auth
+                            @if (auth()->user()->role === 'admin')
+                                {{-- Tombol Delete --}}
+                                <form action="{{ route('galeri.deleteMedia', $m->media_id) }}" method="POST"
+                                    onsubmit="return confirm('Hapus media ini?')"
+                                    style="position:absolute; top:5px; right:5px; z-index:10;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-sm btn-danger">✕</button>
+                                </form>
+                            @endif
+                        @endauth
+
 
                         {{-- Preview File --}}
                         @if (str_contains($m->mime_type, 'image'))
@@ -53,46 +58,46 @@
 
             @empty
                 {{-- Kalau tidak ada media --}}
-                <div class="col-12">
-                    <div class="alert alert-secondary text-center py-4">
-                        Belum ada media.
+                <div class="col-12 d-flex justify-content-center">
+                    <div class="rounded overflow-hidden shadow-sm" style="width:90%; max-width:600px;">
+                        <img src="{{ asset('assets-guest/img/placeholder.jpg') }}" class="w-100"
+                            style="height:300px; object-fit:cover;" alt="Belum ada media">
                     </div>
                 </div>
             @endforelse
-
         </div>
 
-    <!-- MODAL IMAGE VIEWER -->
-    <div class="modal fade" id="imageModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content">
+        <!-- MODAL IMAGE VIEWER -->
+        <div class="modal fade" id="imageModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
 
-                <div class="modal-header">
-                    <h5 class="modal-title">Preview Gambar</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <div class="modal-header">
+                        <h5 class="modal-title">Preview Gambar</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body text-center">
+                        <img id="modalImage" src="" class="img-fluid rounded" style="max-height:80vh;">
+                    </div>
+
+                    <div class="modal-footer">
+                        <a id="downloadLink" href="#" download class="btn btn-success">
+                            <i class="bi bi-download"></i> Download
+                        </a>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    </div>
+
                 </div>
-
-                <div class="modal-body text-center">
-                    <img id="modalImage" src="" class="img-fluid rounded" style="max-height:80vh;">
-                </div>
-
-                <div class="modal-footer">
-                    <a id="downloadLink" href="#" download class="btn btn-success">
-                        <i class="bi bi-download"></i> Download
-                    </a>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                </div>
-
             </div>
         </div>
-    </div>
 
-    <script>
-        function openImageModal(imageUrl) {
-            document.getElementById('modalImage').src = imageUrl;
-            document.getElementById('downloadLink').href = imageUrl;
-            var modal = new bootstrap.Modal(document.getElementById('imageModal'));
-            modal.show();
-        }
-    </script>
-@endsection
+        <script>
+            function openImageModal(imageUrl) {
+                document.getElementById('modalImage').src = imageUrl;
+                document.getElementById('downloadLink').href = imageUrl;
+                var modal = new bootstrap.Modal(document.getElementById('imageModal'));
+                modal.show();
+            }
+        </script>
+    @endsection

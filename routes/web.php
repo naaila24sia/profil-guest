@@ -82,7 +82,7 @@ Route::group(['middleware' => ['checkislogin']], function () {
         Route::resource('profil', ProfilController::class)->only(['edit', 'update', 'destroy', 'create', 'store']);;
         Route::resource('agenda', AgendaController::class)->only(['edit', 'update', 'destroy', 'create', 'store']);;
         Route::resource('profil', ProfilController::class)->only(['edit', 'update', 'destroy', 'create', 'store']);;
-        Route::resource('galeri', GaleriController::class)->only(['edit', 'update', 'destroy', 'create', 'store']);;
+        Route::resource('galeri', GaleriController::class)->only(['edit', 'update', 'destroy', 'create', 'store', 'deleteMedia']);;
         Route::resource('berita', BeritaController::class)->only(['edit', 'update', 'destroy', 'create', 'store']);;
     });
 
