@@ -12,7 +12,7 @@ class CreateAgenda extends Seeder
     {
         $faker = Faker::create('id_ID'); // Faker Indonesia
 
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 50; $i++) {
 
             // tanggal acak
             $tanggalMulai = $faker->dateTimeBetween('-1 month', '+1 month');

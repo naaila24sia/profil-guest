@@ -89,7 +89,7 @@
                                 {{-- ABOUT --}}
                                 <div id="tab-about" class="tab-pane fade show p-0 active">
                                     <h5 class="text-uppercase mb-3">Tentang Desa</h5>
-                                    <p>Desa {{ $profil->nama_desa }} terletak di Kecamatan {{ $profil->kecamatan }},
+                                    <p>{{ $profil->nama_desa }} terletak di Kecamatan {{ $profil->kecamatan }},
                                         Kabupaten {{ $profil->kabupaten }}, Provinsi {{ $profil->provinsi }}.</p>
                                 </div>
 
