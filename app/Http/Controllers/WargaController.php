@@ -17,6 +17,7 @@ class WargaController extends Controller
 
         $wargas = Warga::latest()->filter($request, $filterableColumns)
             ->search($request, $searchableColumns)
+            ->latest()
             ->paginate(10)
             ->withQueryString();
 

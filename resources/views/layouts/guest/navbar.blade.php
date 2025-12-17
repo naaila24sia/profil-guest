@@ -7,10 +7,10 @@
                 <div class="col-md-8">
                     <div class="topbar-info d-flex flex-wrap">
                         <a href="#" class="text-light me-4">
-                            <i class="fas fa-envelope text-white me-2"></i>Example@gmail.com
+                            <i class="fas fa-envelope text-white me-2"></i>desasukamaju@gmail.com
                         </a>
                         <a href="#" class="text-light">
-                            <i class="fas fa-phone-alt text-white me-2"></i>+01234567890
+                            <i class="fas fa-phone-alt text-white me-2"></i>0761-889977
                         </a>
                     </div>
                 </div>
@@ -28,8 +28,17 @@
 
         {{-- NAVBAR --}}
         <nav class="navbar navbar-light bg-light navbar-expand-xl">
-            <a href="{{ route('dashboard') }}" class="navbar-brand ms-3">
-                <h1 class="text-primary display-5">Bina Desa</h1>
+            <a href="{{ route('dashboard') }}" class="navbar-brand ms-3 d-flex align-items-center gap-2">
+
+                {{-- ICON LOGO --}}
+                @if ($profil && $profil->logo && $profil->logo->file_name)
+                    <img src="{{ asset('storage/uploads/profil/' . $profil->logo->file_name) }}" alt="Logo Desa"
+                        class="logo-icon">
+                @endif
+
+                {{-- TEKS BRAND --}}
+                <span class="brand-text">SiDesa</span>
+
             </a>
 
             <button class="navbar-toggler py-2 px-3 me-3" type="button" data-bs-toggle="collapse"
@@ -78,88 +87,93 @@
                     </li>
 
                     {{-- DROPDOWN BERITA --}}
-                    <li class="nav-item dropdown">
-                        <a href="{{ route('berita.index') }}"
-                            class="nav-link dropdown-toggle
-                           {{ request()->routeIs('berita.*') || request()->routeIs('kategori.*') ? 'fw-bold text-primary' : 'text-dark' }}"
-                            data-bs-toggle="dropdown">
-                            Berita
-                        </a>
-                        <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                            <a href="{{ route('berita.index') }}" class="dropdown-item">Berita</a>
-                            <a href="{{ route('kategori.index') }}" class="dropdown-item">Kategori Berita</a>
-                        </div>
-                    </li>
+                    {{-- MENU BERITA --}}
+                    @auth
+                        @if (Auth::user()->role === 'admin')
+                            {{-- ADMIN: PAKAI DROPDOWN --}}
+                            <li class="nav-item dropdown">
+                                <a href="{{ route('berita.index') }}"
+                                    class="nav-link dropdown-toggle
+                                        {{ request()->routeIs('berita.*') || request()->routeIs('kategori.*') ? 'fw-bold text-primary' : 'text-dark' }}"
+                                    data-bs-toggle="dropdown">
+                                    Berita
+                                </a>
+
+                                <div class="dropdown-menu m-0 bg-secondary rounded-0">
+                                    <a href="{{ route('berita.index') }}" class="dropdown-item">
+                                        Berita
+                                    </a>
+                                    <a href="{{ route('kategori.index') }}" class="dropdown-item">
+                                        Kategori Berita
+                                    </a>
+                                </div>
+                            </li>
+                        @endif
+                    @else
+                        {{-- BELUM LOGIN: TANPA DROPDOWN --}}
+                        <li class="nav-item">
+                            <a href="{{ route('berita.index') }}"
+                                class="nav-link {{ request()->routeIs('berita.*') ? 'fw-bold text-primary' : 'text-dark' }}">
+                                Berita
+                            </a>
+                        </li>
+                    @endauth
+
+
+                    @auth
+                        @if (Auth::user()->role === 'admin')
+                            <li class="nav-item">
+                                <a href="{{ route('warga.index') }}"
+                                    class="nav-link {{ request()->routeIs('warga.index') ? 'fw-bold text-primary' : 'text-dark' }}">
+                                    Warga
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{{ route('user.index') }}"
+                                    class="nav-link {{ request()->routeIs('user.index') ? 'fw-bold text-primary' : 'text-dark' }}">
+                                    User
+                                </a>
+                            </li>
+                        @endif
+                    @endauth
 
                     <li class="nav-item">
-                        <a href="{{ route('warga.index') }}"
-                            class="nav-link {{ request()->routeIs('warga.index') ? 'fw-bold text-primary' : 'text-dark' }}">
-                            Warga
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="{{ route('user.index') }}"
-                            class="nav-link {{ request()->routeIs('user.index') ? 'fw-bold text-primary' : 'text-dark' }}">
-                            User
+                        <a href="{{ route('developer') }}"
+                            class="nav-link {{ request()->routeIs('developer') ? 'fw-bold text-primary' : 'text-dark' }}">
+                            Developer
                         </a>
                     </li>
 
                     {{-- LOGIN / USER DROPDOWN --}}
 
                     @if (Auth::check())
-                        <li class="nav-item dropdown ms-3">
-                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
-    id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"
-    style="gap: 8px;">
-
-    {{-- Icon profile bulat --}}
-    <div class="rounded-circle bg-primary d-flex justify-content-center align-items-center"
-        style="width: 32px; height: 32px;">
-        <i class="fa-regular fa-user text-white" style="font-size: 16px;"></i>
-    </div>
-
-    {{-- Nama user --}}
-    <span class="text-dark fw-semibold" style="font-size: 15px;">
-        {{ Auth::user()->name }}
-    </span>
-</a>
-
-
+                        <li class="nav-item dropdown ms-3"> <a
+                                class="nav-link dropdown-toggle d-flex align-items-center" href="#"
+                                id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                                style="gap: 8px;"> {{-- Icon profile bulat --}} <div
+                                    class="rounded-circle bg-primary d-flex justify-content-center align-items-center"
+                                    style="width: 32px; height: 32px;"> <i class="fa-regular fa-user text-white"
+                                        style="font-size: 16px;"></i> </div> {{-- Nama user --}} <span
+                                    class="text-dark fw-semibold" style="font-size: 15px;"> {{ Auth::user()->name }}
+                                </span> </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-
-                                {{-- LAST LOGIN --}}
-                                <li>
-                                    <a class="dropdown-item d-flex align-items-center">
-                                        <i class="fa-regular fa-clock me-2"></i>
-                                        {{ session('last_login') }}
-
-                                    </a>
+                                {{-- LAST LOGIN --}} <li> <a class="dropdown-item d-flex align-items-center"> <i
+                                            class="fa-regular fa-clock me-2"></i> {{ session('last_login') }} </a>
                                 </li>
-
-                                <div class="dropdown-divider"></div>
-
-                                {{-- LOGOUT --}}
-                                <li>
-                                    <form action="{{ route('logout') }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="dropdown-item d-flex align-items-center">
-                                            <i class="fa-solid fa-right-from-bracket me-2"></i>
-                                            Logout
-                                        </button>
+                                <div class="dropdown-divider"></div> {{-- LOGOUT --}} <li>
+                                    <form action="{{ route('logout') }}" method="POST"> @csrf <button type="submit"
+                                            class="dropdown-item d-flex align-items-center"> <i
+                                                class="fa-solid fa-right-from-bracket me-2"></i> Logout </button>
                                     </form>
                                 </li>
-
                             </ul>
                         </li>
                     @else
-                        {{-- TOMBOL LOGIN --}}
-                        <li class="nav-item ms-3 me-3">
-                            <a href="{{ route('login.form') }}" class="btn btn-primary text-white py-2 px-4">
-                                Login
-                            </a>
-                        </li>
+                        {{-- TOMBOL LOGIN --}} <li class="nav-item ms-3 me-3"> <a href="{{ route('login.form') }}"
+                                class="btn btn-primary text-white py-2 px-4"> Login </a> </li>
                     @endif
+
 
                 </ul>
             </div>
@@ -197,7 +211,3 @@
 {{-- <div class="d-flex align-items-center flex-nowrap pt-xl-0" style="margin-left: 15px;">
                             <a href="" class="btn-hover-bg btn btn-primary text-white py-2 px-4 me-3">Donate Now</a>
                         </div> --}}
-</div>
-</nav>
-</div>
-</div>

@@ -1,6 +1,6 @@
 <head>
     <meta charset="utf-8">
-    <title>Bina Desa</title>
+    <title>SiDesa</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -366,6 +366,66 @@
                 flex-direction: row;
                 margin-top: 15px;
             }
+        }
+
+        /* ukuran icon logo */
+        .logo-icon {
+            height: 50px;
+            /* PAS buat navbar */
+            width: auto;
+        }
+
+        /* teks brand */
+        .brand-text {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0d6efd;
+            /* sesuaikan warna */
+            line-height: 1;
+        }
+
+        /* navbar normal */
+        .navbar {
+            height: 75px;
+        }
+
+        /* brand text navbar */
+        .brand-text {
+            font-size: 32px;
+            /* BESAR TAPI AMAN */
+            font-weight: 700;
+            color: #f5b463;
+            /* warna kuning kamu */
+            line-height: 1;
+            white-space: nowrap;
+            /* BIAR GA KE POTONG */
+        }
+
+        /* navbar tetap stabil */
+        .navbar {
+            height: 75px;
+            display: flex;
+            align-items: center;
+        }
+
+        .login-logo {
+            height: 80px;
+            /* BESARIN / KECILIN DI SINI */
+            width: auto;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+            /* PAKSA TENGAH */
+        }
+
+        .bg-breadcrumb {
+            height: 350px;
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.35),
+                    rgba(0, 0, 0, 0.35)),
+                url("/assets-guest/img/header.jpg") center/cover no-repeat;
+            display: flex;
+            align-items: center;
         }
         
     </style>

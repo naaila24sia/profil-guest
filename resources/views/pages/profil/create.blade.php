@@ -19,86 +19,81 @@
 
             <h3 class="text-center mb-4 text-primary">Form Tambah Profil Desa</h3>
 
-            <form action="{{ route('profil.store') }}" method="POST">
+            {{-- FORM --}}
+            <form action="{{ route('profil.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="row g-4">
 
-                    <!-- KOLom KIRI -->
+                    <!-- KOLOM KIRI -->
                     <div class="col-md-4">
-
                         <div class="mb-3">
                             <label class="form-label">Nama Desa</label>
-                            <input type="text" name="nama_desa" class="form-control" placeholder="Masukkan nama desa"
-                                required>
+                            <input type="text" name="nama_desa" class="form-control" required>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Kecamatan</label>
-                            <input type="text" name="kecamatan" class="form-control" placeholder="Masukkan kecamatan"
-                                required>
+                            <input type="text" name="kecamatan" class="form-control" required>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Kabupaten</label>
-                            <input type="text" name="kabupaten" class="form-control" placeholder="Masukkan kabupaten"
-                                required>
+                            <input type="text" name="kabupaten" class="form-control" required>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Provinsi</label>
-                            <input type="text" name="provinsi" class="form-control" placeholder="Masukkan provinsi"
-                                required>
+                            <input type="text" name="provinsi" class="form-control" required>
                         </div>
-
                     </div>
 
                     <!-- KOLOM TENGAH -->
                     <div class="col-md-4">
-
                         <div class="mb-3">
                             <label class="form-label">Email</label>
-                            <input type="email" name="email" class="form-control" placeholder="Masukkan email desa"
-                                required>
+                            <input type="email" name="email" class="form-control" required>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Telepon</label>
-                            <input type="text" name="telepon" class="form-control" placeholder="Masukkan nomor telepon"
-                                required>
+                            <input type="text" name="telepon" class="form-control" required>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Alamat Kantor</label>
-                            <textarea name="alamat_kantor" class="form-control" rows="4" placeholder="Masukkan alamat kantor desa" required></textarea>
+                            <textarea name="alamat_kantor" class="form-control" rows="4" required></textarea>
                         </div>
-
                     </div>
 
                     <!-- KOLOM KANAN -->
                     <div class="col-md-4">
-
                         <div class="mb-3">
                             <label class="form-label">Visi</label>
-                            <textarea name="visi" class="form-control" rows="5" placeholder="Masukkan visi desa" required></textarea>
+                            <textarea name="visi" class="form-control" rows="4" required></textarea>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Misi</label>
-                            <textarea name="misi" class="form-control" rows="5" placeholder="Masukkan misi desa" required></textarea>
+                            <textarea name="misi" class="form-control" rows="4" required></textarea>
                         </div>
 
+                        {{-- UPLOAD LOGO --}}
+                        <div class="mb-3">
+                            <label class="form-label">Logo Desa</label>
+                            <input type="file" name="logo" class="form-control" accept="image/*">
+                            <small class="text-muted">JPG / PNG, max 2MB</small>
+                        </div>
                     </div>
+
                 </div>
 
                 <div class="text-center mt-4">
                     <button type="submit" class="btn btn-primary px-4 py-2">Simpan</button>
                     <a href="{{ route('profil.index') }}" class="btn btn-secondary px-4 py-2">Batal</a>
                 </div>
-
             </form>
 
         </div>
     </div>
-    <!-- Form End -->
 @endsection

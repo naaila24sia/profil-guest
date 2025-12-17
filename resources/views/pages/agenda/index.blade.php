@@ -23,9 +23,14 @@
                     <h1 class="mb-0">Agenda Kegiatan Terbaru</h1>
                 </div>
 
-                <a href="{{ route('agenda.create') }}" class="btn btn-primary px-4 py-2">
-                    <i class="bi bi-plus-circle"></i> Tambah Data
-                </a>
+                @auth
+                    @if (Auth::user()->role === 'admin')
+                        <a href="{{ route('agenda.create') }}" class="btn btn-primary px-4 py-2">
+                            <i class="bi bi-plus-circle"></i> Tambah Data
+                        </a>
+                    @endif
+                @endauth
+
             </div>
 
             {{-- Flash Messages --}}
@@ -69,7 +74,7 @@
             </form>
 
             @if ($agenda->count())
-                <div class="row g-4">
+                <div class="row g-3">
 
                     @foreach ($agenda as $ag)
                         <div class="col-lg-4 col-md-6">
@@ -80,11 +85,9 @@
                                     <img src="{{ asset('storage/uploads/agenda/' . $ag->media->first()->file_name) }}"
                                         class="agenda-image" style="width:100%; height:250px; object-fit:cover;">
                                 @else
-                                    <img src="{{ asset('assets-guest/img/placeholder.jpgg') }}" class="agenda-image"
+                                    <img src="{{ asset('assets-guest/img/placeholder.jpg') }}" class="agenda-image"
                                         style="width:100%; height:250px; object-fit:cover; opacity:0.7;">
                                 @endif
-
-
 
                                 <div class="event-content p-4">
 
@@ -123,30 +126,30 @@
                                     {{-- TOMBOL BACA, EDIT, DELETE --}}
                                     <div class="d-flex justify-content-between align-items-center">
 
-                                        <a class="btn btn-primary text-white py-2 px-3"
-                                            href="{{ route('agenda.show', $ag->agenda_id) }}">
-                                            Read More
-                                        </a>
+                                        @auth
+                                            @if (Auth::user()->role === 'admin')
+                                                <div class="d-flex gap-2 ms-auto">
+                                                    {{-- EDIT --}}
+                                                    <a href="{{ route('agenda.edit', $ag->agenda_id) }}"
+                                                        class="btn btn-warning btn-sm px-2 py-1">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </a>
 
-                                        <div class="d-flex gap-2">
-                                            {{-- EDIT --}}
-                                            <a href="{{ route('agenda.edit', $ag->agenda_id) }}"
-                                                class="btn btn-warning btn-sm px-2 py-1">
-                                                <i class="bi bi-pencil"></i>
-                                            </a>
-
-                                            {{-- DELETE --}}
-                                            <form action="{{ route('agenda.destroy', $ag->agenda_id) }}" method="POST"
-                                                onsubmit="return confirm('Hapus agenda ini?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger btn-sm px-2 py-1">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </form>
-                                        </div>
+                                                    {{-- DELETE --}}
+                                                    <form action="{{ route('agenda.destroy', $ag->agenda_id) }}" method="POST"
+                                                        onsubmit="return confirm('Hapus agenda ini?')">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn btn-danger btn-sm px-2 py-1">
+                                                            <i class="bi bi-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            @endif
+                                        @endauth
 
                                     </div>
+
 
                                 </div>
                             </div>

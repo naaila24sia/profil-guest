@@ -13,7 +13,8 @@ class AgendaController extends Controller
 
         $agenda = Agenda::with('media')
             ->search($request, $searchableColumns)
-            ->paginate(10)
+            ->latest('tanggal_mulai')
+            ->paginate(9)
             ->withQueryString();
         return view('pages.agenda.index', compact('agenda'));
     }

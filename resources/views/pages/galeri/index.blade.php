@@ -2,14 +2,14 @@
 
 @section('content')
 
-<!-- Header Start -->
+    <!-- Header Start -->
     <div class="container-fluid bg-breadcrumb" style="margin-top: -30px;">
         <div class="container text-center py-5 mt-0" style="max-width: 900px;">
             <h3 class="text-white display-3 mb-4">Galeri</h3>
-                <ol class="breadcrumb justify-content-center mb-0">
-                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                    <li class="breadcrumb-item active text-white">Galeri</li>
-                </ol>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                <li class="breadcrumb-item active text-white">Galeri</li>
+            </ol>
         </div>
     </div>
 
@@ -20,9 +20,14 @@
                 <h1 class="mb-0">Galeri Kegiatan Terbaru</h1>
             </div>
 
-            <a href="{{ route('galeri.create') }}" class="btn btn-primary">
-                <i class="bi bi-plus-circle"></i> Tambah Data
-            </a>
+            @auth
+                @if (Auth::user()->role === 'admin')
+                    <a href="{{ route('galeri.create') }}" class="btn btn-primary">
+                        <i class="bi bi-plus-circle"></i> Tambah Data
+                    </a>
+                @endif
+            @endauth
+
         </div>
 
         {{-- Flash message --}}
@@ -66,8 +71,7 @@
                 @endphp
 
                 <div class="col-md-6 col-lg-4 col-xl-3">
-                    <div class="card h-100 galeri-card">
-
+                    <div class="card h-100 galeri-card overflow-hidden">
 
                         {{-- FOTO UTAMA --}}
                         @if ($cover)
@@ -75,9 +79,8 @@
                                 src="{{ asset('storage/uploads/galeri/' . $cover->file_name) }}" class="mb-3 w-100"
                                 style="height:200px; object-fit:cover; border-radius:6px;">
                         @else
-                            <img id="mainImage{{ $item->galeri_id }}"
-                                src="https://via.placeholder.com/600x300?text=No+Image" class="mb-3 w-100"
-                                style="height:200px; object-fit:cover; border-radius:6px;">
+                            <img id="mainImage{{ $item->galeri_id }}" src="{{ asset('assets-guest/img/placeholder.jpg') }}"
+                                style="height:200px; object-fit:cover; border-radius:6px; opacity:0.7;">
                         @endif
 
                         {{-- THUMBNAIL (maks 4 foto) --}}
@@ -120,25 +123,38 @@
                         </div>
 
                         {{-- ACTION BUTTONS --}}
-                        <div class="card-footer bg-white d-flex justify-content-center gap-2">
-                            <a href="{{ route('galeri.show', $item) }}" class="btn btn-primary btn-sm px-3">
-                                <i class="bi bi-eye"></i> Detail
-                            </a>
+                        <div class="card-footer bg-white">
+                            <div class="d-flex justify-content-between align-items-center">
 
-                            <a href="{{ route('galeri.edit', $item) }}" class="btn btn-warning btn-sm px-3">
-                                <i class="bi bi-pencil"></i> Edit
-                            </a>
+                                {{-- DETAIL (PUBLIK) --}}
+                                <a href="{{ route('galeri.show', $item) }}" class="btn btn-primary text-white py-2 px-3">
+                                    <i class="bi bi-eye"></i> Detail
+                                </a>
 
-                            <form action="{{ route('galeri.destroy', $item) }}" method="POST"
-                                onsubmit="return confirm('Yakin ingin menghapus?')">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger btn-sm px-3">
-                                    <i class="bi bi-trash"></i> Hapus
-                                </button>
-                            </form>
+                                {{-- ADMIN ACTION --}}
+                                @auth
+                                    @if (Auth::user()->role === 'admin')
+                                        <div class="d-flex gap-2">
+                                            {{-- EDIT --}}
+                                            <a href="{{ route('galeri.edit', $item) }}"
+                                                class="btn btn-warning btn-sm px-2 py-1">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+
+                                            {{-- DELETE --}}
+                                            <form action="{{ route('galeri.destroy', $item) }}" method="POST"
+                                                onsubmit="return confirm('Yakin ingin menghapus?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-danger btn-sm px-2 py-1">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    @endif
+                                @endauth
+                            </div>
                         </div>
-
                     </div>
                 </div>
 

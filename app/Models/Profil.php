@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Media;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Profil extends Model
 {
@@ -23,4 +24,11 @@ class Profil extends Model
         'visi',
         'misi'
     ];
+
+    public function logo()
+{
+    return $this->hasOne(Media::class, 'ref_id', 'profil_id')
+        ->where('ref_table', 'profil');
+}
+
 }

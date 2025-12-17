@@ -13,7 +13,7 @@ class CreateBerita extends Seeder
     {
         $faker = Faker::create('id_ID');
 
-        for ($i = 1; $i <= 100; $i++) {
+        for ($i = 1; $i <= 5; $i++) {
 
             $judul = $faker->sentence(4);
             $slug = Str::slug($judul);

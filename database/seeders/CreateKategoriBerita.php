@@ -52,7 +52,7 @@ class CreateKategoriBerita extends Seeder
         // faker sederhana
         $faker = Faker::create('id_ID');
 
-        for ($i = 1; $i <= 100; $i++) {
+        for ($i = 1; $i <= 20; $i++) {
             $nama = ucfirst($faker->words(2, true));
 
             KategoriBerita::create([

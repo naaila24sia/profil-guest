@@ -61,12 +61,15 @@
                 </form>
 
                 {{-- BUTTON TAMBAH --}}
-                <a href="{{ route('berita.create') }}" class="btn btn-primary mb-2">
-                    <i class="bi bi-plus-circle"></i> Tambah Data
-                </a>
+                @auth
+                    @if (Auth::user()->role === 'admin')
+                        <a href="{{ route('berita.create') }}" class="btn btn-primary mb-2">
+                            <i class="bi bi-plus-circle"></i> Tambah Data
+                        </a>
+                    @endif
+                @endauth
 
             </div>
-
 
             {{-- LIST BERITA --}}
             <div class="row g-4">
@@ -76,17 +79,19 @@
                             ->where('ref_id', $b->berita_id)
                             ->orderBy('media_id', 'desc')
                             ->first();
-
                     @endphp
 
                     <div class="col-lg-6 col-xl-4">
                         <div class="event-item rounded border overflow-hidden h-100" style="background-color: white;">
 
                             {{-- COVER FOTO --}}
-                            <img src="{{ $media
-                                ? asset('storage/uploads/berita/' . $media->file_name)
-                                : 'https://via.placeholder.com/600x300?text=No+Image' }}"
-                                style="width:100%; height:230px; object-fit:cover;">
+                            @if ($media)
+                                <img src="{{ asset('storage/uploads/berita/' . $media->file_name) }}"
+                                    style="width:100%; height:230px; object-fit:cover;">
+                            @else
+                                <img src="{{ asset('assets-guest/img/placeholder.jpg') }}"
+                                    style="width:100%; height:230px; object-fit:cover; opacity:0.7;">
+                            @endif
 
                             {{-- CONTENT --}}
                             <div class="event-content p-4">
@@ -113,25 +118,28 @@
                                         Baca Selengkapnya
                                     </a>
 
-                                    <div class="d-flex gap-2">
-                                        {{-- EDIT --}}
-                                        <a href="{{ route('berita.edit', $b->berita_id) }}"
-                                            class="btn btn-warning btn-sm px-2 py-1">
-                                            <i class="bi bi-pencil"></i>
-                                        </a>
+                                    @auth
+                                        @if (Auth::user()->role === 'admin')
+                                            <div class="d-flex gap-2">
+                                                {{-- EDIT --}}
+                                                <a href="{{ route('berita.edit', $b->berita_id) }}"
+                                                    class="btn btn-warning btn-sm px-2 py-1">
+                                                    <i class="bi bi-pencil"></i>
+                                                </a>
 
-                                        {{-- DELETE --}}
-                                        <form action="{{ route('berita.destroy', $b->berita_id) }}" method="POST"
-                                            onsubmit="return confirm('Hapus Berita?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-danger btn-sm px-2 py-1">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                                        </form>
-                                    </div>
+                                                {{-- DELETE --}}
+                                                <form action="{{ route('berita.destroy', $b->berita_id) }}" method="POST"
+                                                    onsubmit="return confirm('Hapus Berita?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-danger btn-sm px-2 py-1">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        @endif
+                                    @endauth
                                 </div>
-
                             </div>
                         </div>
                     </div>

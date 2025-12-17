@@ -15,7 +15,7 @@ class CreateWarga extends Seeder
     {
         $faker = Faker::create('id_ID');
 
-        for ($i = 1; $i <= 100; $i++) {
+        for ($i = 1; $i <= 5; $i++) {
             DB::table('warga')->insert([
                 'no_ktp'        => $faker->unique()->numerify('16##############'),
                 'nama'          => $faker->name(),

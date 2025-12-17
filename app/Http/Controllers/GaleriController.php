@@ -16,6 +16,7 @@ class GaleriController extends Controller
         $searchableColumns = ['judul', 'deskripsi'];
 
         $galeris = Galeri::search($request, $searchableColumns)
+            ->latest()
             ->paginate(12)
             ->withQueryString();
 

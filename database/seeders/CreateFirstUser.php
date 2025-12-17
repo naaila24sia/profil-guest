@@ -2,9 +2,9 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Faker\Factory as Faker;
 
 class CreateFirstUser extends Seeder
 {
@@ -16,9 +16,9 @@ class CreateFirstUser extends Seeder
         // User utama (fixed)
         User::updateOrCreate(
             ['email' => 'naaila24si@mahasiswa.pcr.ac.id'],
-            [
-                'name'     => 'Naaila',
-                'password' => Hash::make('Naaila24si'),
+            ['name'     => 'Naaila',
+            'password' => Hash::make('Naaila24si'),
+            'role'     => 'admin',
             ]
         );
 
@@ -26,11 +26,12 @@ class CreateFirstUser extends Seeder
         $faker = Faker::create('id_ID');
 
         // contoh generate 50 user random
-        for ($i = 1; $i <= 100; $i++) {
+        for ($i = 1; $i <= 5; $i++) {
             User::create([
                 'name'     => $faker->name(),
                 'email'    => $faker->unique()->safeEmail(),
-                'password' => Hash::make('password123'),  // password default
+                'password' => Hash::make('password123'),
+                // password default
             ]);
         }
     }

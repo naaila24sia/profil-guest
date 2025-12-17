@@ -4,14 +4,11 @@
     <div class="col-12 d-flex justify-content-center py-4">
         <div class="d-flex shadow-lg bg-white rounded-4 overflow-hidden" style="width: 1000px; min-height: 560px;">
 
-
             {{-- BAGIAN KIRI (FORM) --}}
             <div class="d-flex flex-column justify-content-center align-items-center text-center px-5" style="width: 50%;">
 
                 {{-- Logo / Brand --}}
-                <h3 class="fw-bold mb-3" style="color:#F7B56A; font-size:1.7rem;">
-                    Bina Desa
-                </h3>
+                <img src="{{ asset('assets-guest/img/SiDesa.png') }}" alt="Logo Bina Desa" style="height:100px;">
 
                 {{-- Heading --}}
                 <h4 class="fw-bold mb-2" style="font-size:1.4rem;">
@@ -71,7 +68,7 @@
                         Continue
                     </button>
 
-                    <p class="text-muted mt-3" style="font-size:0.75rem;">© 2025 Bina Desa</p>
+                    <p class="text-muted mt-3" style="font-size:0.75rem;">© 2025 SiDesa</p>
                 </form>
             </div>
 

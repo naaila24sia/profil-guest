@@ -19,89 +19,111 @@
 
             <h3 class="text-center mb-4 text-primary">Form Edit Profil Desa</h3>
 
-           <form action="{{ route('profil.update', $profil->profil_id) }}" method="POST">
-    @csrf
-    @method('PUT')
+            {{-- FORM --}}
+            <form action="{{ route('profil.update', $profil->profil_id) }}"
+                  method="POST"
+                  enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
 
-    <div class="row g-4">
-        <!-- KOLom KIRI -->
-        <div class="col-md-4">
+                <div class="row g-4">
 
-            <div class="mb-3">
-                <label class="form-label">Nama Desa</label>
-                <input type="text" name="nama_desa" class="form-control"
-                       value="{{ old('nama_desa', $profil->nama_desa) }}" required>
-            </div>
+                    <!-- KOLOM KIRI -->
+                    <div class="col-md-4">
 
-            <div class="mb-3">
-                <label class="form-label">Kecamatan</label>
-                <input type="text" name="kecamatan" class="form-control"
-                       value="{{ old('kecamatan', $profil->kecamatan) }}" required>
-            </div>
+                        <div class="mb-3">
+                            <label class="form-label">Nama Desa</label>
+                            <input type="text" name="nama_desa" class="form-control"
+                                   value="{{ old('nama_desa', $profil->nama_desa) }}" required>
+                        </div>
 
-            <div class="mb-3">
-                <label class="form-label">Kabupaten</label>
-                <input type="text" name="kabupaten" class="form-control"
-                       value="{{ old('kabupaten', $profil->kabupaten) }}" required>
-            </div>
+                        <div class="mb-3">
+                            <label class="form-label">Kecamatan</label>
+                            <input type="text" name="kecamatan" class="form-control"
+                                   value="{{ old('kecamatan', $profil->kecamatan) }}" required>
+                        </div>
 
-            <div class="mb-3">
-                <label class="form-label">Provinsi</label>
-                <input type="text" name="provinsi" class="form-control"
-                       value="{{ old('provinsi', $profil->provinsi) }}" required>
-            </div>
+                        <div class="mb-3">
+                            <label class="form-label">Kabupaten</label>
+                            <input type="text" name="kabupaten" class="form-control"
+                                   value="{{ old('kabupaten', $profil->kabupaten) }}" required>
+                        </div>
 
-        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Provinsi</label>
+                            <input type="text" name="provinsi" class="form-control"
+                                   value="{{ old('provinsi', $profil->provinsi) }}" required>
+                        </div>
 
-        <!-- KOLOM TENGAH -->
-        <div class="col-md-4">
+                    </div>
 
-            <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input type="email" name="email" class="form-control"
-                       value="{{ old('email', $profil->email) }}" required>
-            </div>
+                    <!-- KOLOM TENGAH -->
+                    <div class="col-md-4">
 
-            <div class="mb-3">
-                <label class="form-label">Telepon</label>
-                <input type="text" name="telepon" class="form-control"
-                       value="{{ old('telepon', $profil->telepon) }}" required>
-            </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control"
+                                   value="{{ old('email', $profil->email) }}" required>
+                        </div>
 
-            <div class="mb-3">
-                <label class="form-label">Alamat Kantor</label>
-                <textarea name="alamat_kantor" class="form-control" rows="4" required>{{ old('alamat_kantor', $profil->alamat_kantor) }}</textarea>
-            </div>
+                        <div class="mb-3">
+                            <label class="form-label">Telepon</label>
+                            <input type="text" name="telepon" class="form-control"
+                                   value="{{ old('telepon', $profil->telepon) }}" required>
+                        </div>
 
-        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Alamat Kantor</label>
+                            <textarea name="alamat_kantor" class="form-control" rows="4" required>{{ old('alamat_kantor', $profil->alamat_kantor) }}</textarea>
+                        </div>
 
-        <!-- KOLOM KANAN -->
-        <div class="col-md-4">
+                    </div>
 
-            <div class="mb-3">
-                <label class="form-label">Visi</label>
-                <textarea name="visi" class="form-control" rows="5" required>{{ old('visi', $profil->visi) }}</textarea>
-            </div>
+                    <!-- KOLOM KANAN -->
+                    <div class="col-md-4">
 
-            <div class="mb-3">
-                <label class="form-label">Misi</label>
-                <textarea name="misi" class="form-control" rows="5" required>{{ old('misi', $profil->misi) }}</textarea>
-            </div>
+                        <div class="mb-3">
+                            <label class="form-label">Visi</label>
+                            <textarea name="visi" class="form-control" rows="4" required>{{ old('visi', $profil->visi) }}</textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Misi</label>
+                            <textarea name="misi" class="form-control" rows="4" required>{{ old('misi', $profil->misi) }}</textarea>
+                        </div>
+
+                        {{-- LOGO DESA --}}
+                        <div class="mb-3">
+                            <label class="form-label">Logo Desa</label>
+
+                            @if($profil->logo)
+                                <div class="mb-2">
+                                    <img src="{{ asset('storage/' . $profil->logo->file_path) }}"
+                                         alt="Logo Desa"
+                                         style="height:70px;">
+                                </div>
+                            @endif
+
+                            <input type="file" name="logo" class="form-control" accept="image/*">
+                            <small class="text-muted">
+                                Kosongkan jika tidak ingin mengganti logo
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-primary px-4 py-2">
+                        Simpan Perubahan
+                    </button>
+                    <a href="{{ route('profil.index') }}" class="btn btn-secondary px-4 py-2">
+                        Batal
+                    </a>
+                </div>
+
+            </form>
 
         </div>
     </div>
-
-    <div class="text-center mt-4">
-        <button type="submit" class="btn btn-primary px-4 py-2">Simpan</button>
-        <a href="{{ route('profil.index') }}" class="btn btn-secondary px-4 py-2">Batal</a>
-    </div>
-
-</form>
-
-
-
-        </div>
-    </div>
-
     <!-- Form Edit Profil End -->
 @endsection

@@ -1,29 +1,18 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use App\Models\Warga;
-use App\Models\Agenda;
-use App\Models\Berita;
-use App\Models\Galeri;
-use Illuminate\Http\Request;
-use App\Models\KategoriBerita;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class DeveloperController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $data = [
-            'totalBerita'   => Berita::count(),
-            'totalAgenda'   => Agenda::count(),
-            'totalGaleri'   => Galeri::count(),
-        ];
-
-        return view('pages.dashboard.dashboard', $data);
-
+        return view('pages.developer.developer');
     }
 
     /**
@@ -31,7 +20,7 @@ class DashboardController extends Controller
      */
     public function create()
     {
-        return view('pages.galeri.create');
+        //
     }
 
     /**

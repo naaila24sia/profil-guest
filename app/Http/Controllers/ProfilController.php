@@ -1,24 +1,26 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Profil;
+use App\Models\Media;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProfilController extends Controller
 {
     public function index()
     {
-        // Ambil profil pertama (karena hanya 1 data)
-        $profil = Profil::first();
+        $profil = Profil::with('logo')->first();
         return view('pages.profil.index', compact('profil'));
     }
 
     public function create()
     {
-        // Jika sudah ada profil, tidak boleh tambah lagi
+        // hanya boleh 1 profil
         if (Profil::exists()) {
             return redirect()->route('profil.index')
-                ->with('error', 'Profil sudah ada dan hanya boleh 1 data.');
+                ->with('error', 'Profil sudah ada dan hanya boleh satu data.');
         }
 
         return view('pages.profil.create');
@@ -36,16 +38,35 @@ class ProfilController extends Controller
             'telepon'       => 'required',
             'visi'          => 'required',
             'misi'          => 'required',
+            'logo'          => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        Profil::create($request->all());
+        // simpan profil
+        $profil = Profil::create($request->except('logo'));
 
-        return redirect()->route('profil.index')->with('success', 'Profil berhasil dibuat.');
+        // simpan logo jika ada
+        if ($request->hasFile('logo')) {
+
+            $file = $request->file('logo');
+            $fileName = $file->getClientOriginalName();
+
+            // simpan ke public/storage/uploads/profil
+            $file->storeAs('uploads/profil', $fileName, 'public');
+
+            Media::create([
+                'ref_table' => 'profil',
+                'ref_id'    => $profil->profil_id,
+                'file_name' => $fileName,
+            ]);
+        }
+
+        return redirect()->route('profil.index')
+            ->with('success', 'Profil berhasil dibuat.');
     }
 
     public function edit()
     {
-        $profil = Profil::firstOrFail();
+        $profil = Profil::with('logo')->firstOrFail();
         return view('pages.profil.edit', compact('profil'));
     }
 
@@ -63,23 +84,60 @@ class ProfilController extends Controller
             'telepon'       => 'required',
             'visi'          => 'required',
             'misi'          => 'required',
+            'logo'          => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $profil->update($request->all());
+        // update profil
+        $profil->update($request->except('logo'));
 
-        return redirect()->route('profil.index')->with('success', 'Profil berhasil diperbarui.');
+        // jika upload logo baru
+        if ($request->hasFile('logo')) {
+
+            // ambil logo lama
+            $oldLogo = Media::where('ref_table', 'profil')
+                ->where('ref_id', $profil->profil_id)
+                ->first();
+
+            // hapus logo lama (file + db)
+            if ($oldLogo && $oldLogo->file_name) {
+                Storage::disk('public')->delete('uploads/profil/' . $oldLogo->file_name);
+                $oldLogo->delete();
+            }
+
+            // simpan logo baru
+            $file = $request->file('logo');
+            $fileName = $file->getClientOriginalName();
+
+            $file->storeAs('uploads/profil', $fileName, 'public');
+
+            Media::create([
+                'ref_table' => 'profil',
+                'ref_id'    => $profil->profil_id,
+                'file_name' => $fileName,
+            ]);
+        }
+
+        return redirect()->route('profil.index')
+            ->with('success', 'Profil berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
-        // Cari data profil berdasarkan ID
         $profil = Profil::findOrFail($id);
 
-        // Hapus data
+        // hapus logo
+        $logo = Media::where('ref_table', 'profil')
+            ->where('ref_id', $profil->profil_id)
+            ->first();
+
+        if ($logo && $logo->file_name) {
+            Storage::disk('public')->delete('uploads/profil/' . $logo->file_name);
+            $logo->delete();
+        }
+
         $profil->delete();
 
-        // Redirect kembali dengan pesan sukses
-        return redirect()->route('profil.index')->with('success', 'Profil berhasil dihapus.');
+        return redirect()->route('profil.index')
+            ->with('success', 'Profil berhasil dihapus.');
     }
-
 }
